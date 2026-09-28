@@ -1,0 +1,9 @@
+# VB Personal Website
+
+> Personal site: a portfolio of work with case studies, and short profile
+> and contact info.
+
+## Pages
+
+- [Home](/): profile and featured work.
+- [Work](/work): work/case studies, filterable by category.

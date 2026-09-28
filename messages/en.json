@@ -1,0 +1,94 @@
+{
+  "nav": {
+    "home": "Home",
+    "work": "Work",
+    "settings": "Preferences",
+    "languageSwitch": "Language",
+    "privacy": "Cookies & privacy"
+  },
+  "home": {
+    "about": "About",
+    "work": "Work",
+    "viewAll": "View all",
+    "copyEmail": "Copy email",
+    "copied": "Copied",
+    "build": "Build",
+    "links": "Links",
+    "seeMyWork": "See my work",
+    "backToTop": "Back to top",
+    "sharePage": "Share page",
+    "shareHint": "Select and copy the link",
+    "githubContributions": "{count} contributions / last year",
+    "githubAria": "GitHub, {user}, {count} contributions in the last year",
+    "views": "{count} profile views"
+  },
+  "work": {
+    "listTitle": "Work",
+    "listEmpty": "No work published yet.",
+    "client": "Client",
+    "timeline": "Timeline",
+    "role": "Role",
+    "outcome": "Outcome",
+    "visitLive": "Visit project",
+    "eyebrow": "Proof of work",
+    "heading": "Page title (e.g. Projects I helped build)",
+    "intro": "One or two sentences about the projects below, or about you through them: what you do, for whom and what usually comes out of it. Here your work speaks for you.",
+    "filterAll": "All",
+    "filterLabel": "Filter by category",
+    "back": "Work",
+    "onThisPage": "On this page",
+    "otherWork": "Other work",
+    "toolsTitle": "Tools I use",
+    "skillsTitle": "Skills",
+    "languagesTitle": "Languages",
+    "contactTitle": "Let's keep in touch",
+    "contactText": "A short line inviting people to talk (e.g. Let's talk about working together).",
+    "bookCall": "Book call"
+  },
+  "projectCategories": {
+    "experience": "Experience",
+    "saas": "SaaS",
+    "ecommerce": "E-commerce",
+    "landing-pages": "Landing pages",
+    "ads": "Ads",
+    "brands": "Brands"
+  },
+  "shell": {
+    "mainNav": "Main navigation",
+    "nowViewing": "Now viewing",
+    "upNext": "Up next",
+    "openList": "Open list",
+    "closeList": "Close list"
+  },
+  "meta": {
+    "siteName": "Your Name",
+    "description": "Design and development of digital products, from zero to launch."
+  },
+  "error": {
+    "title": "Something went wrong",
+    "description": "This page couldn't load right now. Try again in a moment.",
+    "retry": "Try again",
+    "home": "Back to home"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "description": "This page doesn't exist or was taken down.",
+    "home": "Back to home"
+  },
+  "privacy": {
+    "eyebrow": "Privacy",
+    "title": "Cookies and privacy",
+    "intro": "This site doesn't collect personal data for analytics or advertising. This page explains the little it keeps in your browser.",
+    "storedTitle": "What is stored",
+    "storedText": "A single cookie, <code>NEXT_LOCALE</code>, that remembers the language you picked (English or Portuguese) while your browser is open. It's needed for the site to open in the right language and doesn't identify you.",
+    "notStoredTitle": "What we don't use",
+    "notStoredText": "No analytics, ad pixels, cross-site tracking or forms that store your data. That's why there's no consent prompt: there's nothing to accept or decline.",
+    "controlTitle": "How to control it",
+    "controlText": "You can delete cookies in your browser settings at any time. The site keeps working and goes back to picking the language from your browser.",
+    "contactTitle": "Questions",
+    "contactText": "Reach me by email at",
+    "updated": "Last updated: September 2026.",
+    "counterTitle": "Visit counter",
+    "counterText": "If the site owner turned on the visit counter, each visit adds one to a total shown in the footer. Nothing about you is stored: no cookie, no IP address, only the number. Your browser remembers for the current session that you were counted, so reloading doesn't count twice."
+  }
+}

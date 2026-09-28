@@ -1,0 +1,12 @@
+node_modules/
+.next/
+.env
+.env.local
+.env*.local
+.DS_Store
+.superpowers/
+tsconfig.tsbuildinfo
+.vercel
+.env*
+!.env.example
+.claude/settings.local.json

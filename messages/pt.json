@@ -1,0 +1,94 @@
+{
+  "nav": {
+    "home": "Início",
+    "work": "Trabalhos",
+    "settings": "Preferências",
+    "languageSwitch": "Idioma",
+    "privacy": "Cookies e privacidade"
+  },
+  "home": {
+    "about": "Sobre",
+    "work": "Trabalhos",
+    "viewAll": "Ver todos",
+    "copyEmail": "Copiar email",
+    "copied": "Copiado",
+    "build": "Build",
+    "links": "Links",
+    "seeMyWork": "Veja meu trabalho",
+    "backToTop": "Voltar ao topo",
+    "sharePage": "Compartilhar",
+    "shareHint": "Selecione e copie o link",
+    "githubContributions": "{count} contribuições / último ano",
+    "githubAria": "GitHub, {user}, {count} contribuições no último ano",
+    "views": "{count} visitas ao perfil"
+  },
+  "work": {
+    "listTitle": "Trabalhos",
+    "listEmpty": "Nenhum trabalho publicado ainda.",
+    "client": "Cliente",
+    "timeline": "Período",
+    "role": "Função",
+    "outcome": "Resultado",
+    "visitLive": "Ver projeto",
+    "eyebrow": "Proof of work",
+    "heading": "Título da página (ex: Projetos que ajudei a construir)",
+    "intro": "Uma ou duas frases sobre os projetos abaixo ou sobre você a partir deles: o que você faz, para quem e o que costuma sair disso. Aqui o seu trabalho fala por você.",
+    "filterAll": "Todos",
+    "filterLabel": "Filtrar por categoria",
+    "back": "Trabalhos",
+    "onThisPage": "Nesta página",
+    "otherWork": "Outros trabalhos",
+    "toolsTitle": "Softwares que eu uso",
+    "skillsTitle": "Skills",
+    "languagesTitle": "Idiomas",
+    "contactTitle": "Vamos manter contato",
+    "contactText": "Uma frase curta convidando para conversar (ex: Vamos conversar sobre trabalhar juntos).",
+    "bookCall": "Agendar conversa"
+  },
+  "projectCategories": {
+    "experience": "Experiência",
+    "saas": "SaaS",
+    "ecommerce": "E-commerce",
+    "landing-pages": "Landing pages",
+    "ads": "Ads",
+    "brands": "Brands"
+  },
+  "shell": {
+    "mainNav": "Navegação principal",
+    "nowViewing": "Visualizando agora",
+    "upNext": "A seguir",
+    "openList": "Abrir lista",
+    "closeList": "Fechar lista"
+  },
+  "meta": {
+    "siteName": "Your Name",
+    "description": "Design e desenvolvimento de produtos digitais, do zero ao lançamento."
+  },
+  "error": {
+    "title": "Algo deu errado",
+    "description": "Não consegui carregar esta página agora. Tente de novo em instantes.",
+    "retry": "Tentar de novo",
+    "home": "Voltar ao início"
+  },
+  "notFound": {
+    "title": "Página não encontrada",
+    "description": "Esta página não existe ou saiu do ar.",
+    "home": "Voltar ao início"
+  },
+  "privacy": {
+    "eyebrow": "Privacidade",
+    "title": "Cookies e privacidade",
+    "intro": "Este site não coleta dados pessoais para análise ou publicidade. Esta página explica o pouco que ele guarda no seu navegador.",
+    "storedTitle": "O que fica salvo",
+    "storedText": "Um único cookie, <code>NEXT_LOCALE</code>, que lembra o idioma escolhido (inglês ou português) enquanto o navegador estiver aberto. Ele é necessário para o site abrir no idioma certo e não identifica você.",
+    "notStoredTitle": "O que não usamos",
+    "notStoredText": "Nenhuma ferramenta de análise, pixel de anúncio, rastreamento entre sites ou formulário que guarde seus dados. Por isso não pedimos consentimento: não há nada para aceitar ou recusar.",
+    "controlTitle": "Como controlar",
+    "controlText": "Você pode apagar os cookies nas configurações do seu navegador a qualquer momento. O site continua funcionando, só volta a escolher o idioma pelo navegador.",
+    "contactTitle": "Dúvidas",
+    "contactText": "Fale comigo pelo email",
+    "updated": "Última atualização: setembro de 2026.",
+    "counterTitle": "Contador de visitas",
+    "counterText": "Se o dono do site ligou o contador de visitas, cada visita soma um a um total mostrado no rodapé. Nada sobre você é guardado: nem cookie, nem endereço IP, só o número. Seu navegador lembra, durante a sessão, que você já foi contado, para recarregar a página não contar de novo."
+  }
+}

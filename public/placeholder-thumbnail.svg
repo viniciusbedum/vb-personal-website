@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <!-- Background -->
+  <rect width="1200" height="675" fill="#2a2a2a"/>
+
+  <!-- Border -->
+  <rect x="1" y="1" width="1198" height="673" fill="none" stroke="#343434" stroke-width="2"/>
+
+  <!-- Image icon -->
+  <g transform="translate(600, 300)">
+    <!-- Image frame -->
+    <rect x="-60" y="-60" width="120" height="120" fill="none" stroke="#4a4a4a" stroke-width="2" rx="2"/>
+
+    <!-- Mountain/image symbol -->
+    <path d="M -30 20 L 0 -20 L 20 0 L 30 -20" fill="none" stroke="#4a4a4a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <!-- Circle dot (sun/highlight) -->
+    <circle cx="20" cy="-40" r="8" fill="#4a4a4a"/>
+  </g>
+
+  <!-- Label -->
+  <text x="600" y="420" font-family="system-ui, -apple-system, sans-serif" font-size="24" fill="#4a4a4a" text-anchor="middle" font-weight="500">
+    imagem
+  </text>
+</svg>
