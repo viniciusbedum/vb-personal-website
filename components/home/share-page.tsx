@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
+import { currentPageUrl } from "@/lib/share-url";
 
 export type SharePageProps = {
+  /** Fallback link, used until the browser address is read. */
   url: string;
   label: string;
   hint: string;
@@ -16,8 +18,8 @@ export type SharePageProps = {
 /**
  * Footer row: `children` on the left and, on the
  * right, a column with the visit counter (when on) and "Share page" below.
- * A click on "Share page" reveals the page URL full width underneath, in a
- * read-only field selected so it can be copied right away.
+ * A click on "Share page" reveals the address the visitor is on, full width
+ * underneath, in a read-only field selected so it can be copied right away.
  */
 export function SharePage({
   url,
@@ -27,6 +29,12 @@ export function SharePage({
   counter,
 }: SharePageProps) {
   const [open, setOpen] = useState(false);
+  const [shareUrl, setShareUrl] = useState(url);
+
+  function toggle() {
+    if (!open) setShareUrl(currentPageUrl(window.location));
+    setOpen((value) => !value);
+  }
 
   return (
     <div>
@@ -37,7 +45,7 @@ export function SharePage({
           <button
             type="button"
             aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
+            onClick={toggle}
             className="inline-flex cursor-pointer items-center gap-1 text-foreground uppercase underline underline-offset-4 transition-colors hover:text-muted-foreground"
           >
             {label}
@@ -55,7 +63,7 @@ export function SharePage({
             <input
               readOnly
               autoFocus
-              value={url}
+              value={shareUrl}
               aria-label={hint}
               onFocus={(event) => event.currentTarget.select()}
               className="w-[114.2857%] shrink-0 origin-left scale-[0.875] bg-transparent text-base text-foreground uppercase outline-none tablet:w-full tablet:scale-100 tablet:text-[13px]"

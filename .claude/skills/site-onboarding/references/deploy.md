@@ -34,11 +34,11 @@ After the first deploy, ask if they want a "profile views" counter in the footer
 
 ## Custom domain (optional)
 
-If they own a domain: Vercel dashboard → the project → **Settings → Domains** → add it, then set the DNS records Vercel shows at their domain registrar. It can take from minutes to a few hours to work. You can explain the records but they must enter them in their registrar.
+If they own a domain: Vercel dashboard → the project → **Settings → Domains** → add it, then set the DNS records Vercel shows at their domain registrar. It can take from minutes to a few hours to work. You can explain the records but they must enter them in their registrar. After the domain works, they must **redeploy once** (Deployments → the latest → Redeploy): the site's official address is fixed at build time.
 
 ## `NEXT_PUBLIC_SITE_URL` (optional)
 
-Canonical links, sitemap and share previews use the Vercel production URL automatically. Only with a custom domain it's worth setting `NEXT_PUBLIC_SITE_URL` to `https://theirdomain.com` in Vercel → **Settings → Environment Variables** (Production), then redeploy. They set it in the dashboard; never write it into a local `.env*` file.
+Canonical links, sitemap and share previews use the Vercel production URL automatically. With a custom domain, if they still show the `vercel.app` address after the redeploy, set `NEXT_PUBLIC_SITE_URL` to `https://theirdomain.com` in Vercel → **Settings → Environment Variables**, then redeploy again. The "Share page" field always shows the address the visitor is on, so it needs none of this. They set it in the dashboard; never write it into a local `.env*` file.
 
 ## After publishing
 

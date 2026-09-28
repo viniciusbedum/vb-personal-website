@@ -57,8 +57,14 @@ Keep the text or logo of the preview centred: some apps show it as a square thum
 
 Import the repo on [Vercel](https://vercel.com/new). No environment
 variables are required — the site falls back to the deployment's own URL.
-If you want a fixed canonical URL, set `NEXT_PUBLIC_SITE_URL` (see
-`.env.example`).
+
+**Custom domain.** After you add a domain in Vercel (Settings → Domains),
+redeploy once (Deployments → the latest one → Redeploy). The site's official
+address (canonical link, sitemap, link previews) is fixed at build time, so
+it only changes with a new deploy. If it still shows the `vercel.app`
+address, set `NEXT_PUBLIC_SITE_URL` to `https://yourdomain.com` (see
+`.env.example`) and redeploy. The "Share page" field doesn't depend on any
+of this: it shows the address the visitor is on.
 
 ## Visit counter (optional)
 
