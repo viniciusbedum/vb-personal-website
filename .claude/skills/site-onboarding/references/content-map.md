@@ -15,7 +15,7 @@ Paths used by the skill:
 | Case image | `body` (max 1280 wide) | `public/projects/<slug>/<n>.webp` | `![alt](/projects/<slug>/<n>.webp "caption")` |
 
 **Site icon and share image** (optional, the template ships with a default "VB" set). Same file names, replace the file:
-- Browser tab icon: `app/icon.png`, PNG, 512×512 (square).
+- Browser tab icon: `app/icon.png`, PNG, 128×128 (square).
 - iPhone home-screen icon: `app/apple-icon.png`, PNG, 180×180.
 - Link preview image (WhatsApp, LinkedIn, X...): `public/og-image.jpg`, JPG, 1200×630; keep text/logo centred (some apps crop it to a square). Alt text: `SHARE_IMAGE.alt` in `lib/share-image.ts`.
 PNG/JPG only: browsers and social apps don't reliably support WebP here.
