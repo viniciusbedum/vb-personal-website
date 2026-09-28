@@ -11,6 +11,11 @@ To fill in someone's data, run the `site-onboarding` skill:
 `.claude/skills/site-onboarding/SKILL.md` in any other agent. It interviews
 the person and edits the content files listed below.
 
+After the first setup, use the smaller skills: `add-project` to add a
+project (card and case study) from links, images and notes, and
+`edit-profile` to change the owner's data. Same paths under
+`.claude/skills/<name>/SKILL.md` for agents other than Claude Code.
+
 The full content map (which file holds what) is at
 `.claude/skills/site-onboarding/references/content-map.md`.
 

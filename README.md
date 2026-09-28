@@ -16,6 +16,12 @@ asking a few questions.
    `.claude/skills/site-onboarding/SKILL.md`. It will interview you and
    edit the files below with your name, work, links and case studies.
 
+After the first setup, two smaller skills keep the site up to date:
+`/add-project` (send it links, images and notes, and it builds the card and
+the case study) and `/edit-profile` (photo, bio, links, skills and the
+rest). In other agents, ask them to follow
+`.claude/skills/add-project/SKILL.md` or `.claude/skills/edit-profile/SKILL.md`.
+
 No account is required to run the site locally, and no environment
 variables are required for a first deploy.
 
