@@ -47,7 +47,7 @@ The template ships with a default "VB" icon and link preview image. Replace the 
 
 | What | File | Format and size |
 |---|---|---|
-| Browser tab icon | `app/icon.png` | PNG, 512×512 |
+| Browser tab icon | `app/icon.png` | PNG, 128×128 |
 | iPhone home-screen icon | `app/apple-icon.png` | PNG, 180×180 |
 | Link preview (WhatsApp, LinkedIn, X, iMessage...) | `public/og-image.jpg` | JPG, 1200×630 |
 
