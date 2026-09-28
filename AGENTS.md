@@ -61,14 +61,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-## No design references
-
-Never name a site, person, product or template used as design inspiration:
-not in code, comments, docs, commit messages, pull requests, release notes or
-repository metadata. Describe what the code does (layout, sizes, motion), not
-where an idea came from. When you take values from a screenshot or a link,
-write only the resulting values.
-
 ## Security
 
 Security headers live in `next.config.ts` (`securityHeaders`); JSON-LD goes through `lib/json-ld.ts` (`jsonLdString`) so `<` is escaped. Don't add `dangerouslySetInnerHTML` with content from visitors, and don't add raw-HTML rendering to the Markdown. Secrets never go in the code.
@@ -81,7 +73,7 @@ Off unless the Upstash Redis keys exist (Vercel Marketplace sets them). `lib/vie
 
 Default "VB" files; to replace, keep the same names and sizes (PNG/JPG, not WebP):
 
-- `app/icon.png`: browser tab icon, PNG 512×512.
+- `app/icon.png`: browser tab icon, PNG 128×128.
 - `app/apple-icon.png`: iPhone home-screen icon, PNG 180×180.
 - `public/og-image.jpg`: link preview, JPG 1200×630, content centred (some apps crop to a square). Alt text in `lib/share-image.ts`. Every page uses this image.
 
