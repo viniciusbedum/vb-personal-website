@@ -61,7 +61,7 @@ function childrenText(children: ReactNode): string {
   return "";
 }
 
-const LINK_CLASS = "underline underline-offset-4";
+const LINK_CLASS = "underline underline-offset-4 transition-colors hover:text-foreground";
 
 /** Body link: external ones open in a new tab. */
 const bodyLink: Components["a"] = ({ children, href }) => {
