@@ -110,7 +110,7 @@ Write both `en.md` and `pt.md` following the heading structure in content-map. N
 
 **When the first real project is saved:** hide the examples, do not delete them. Remove the `projeto-exemplo-1` and `projeto-exemplo-2` entries from `PROJECTS` and their slugs from `FEATURED_PROJECTS`; that is enough for them to disappear from the site (an unlisted project never becomes a page). Keep the folders `content/projects/projeto-exemplo-*/` and the covers in `public/projects/projeto-exemplo-*/`: they stay in the code as hidden models, and a new project is made by duplicating one. Keep `public/placeholder-thumbnail.svg` in place regardless (it is the fallback for empty images). The shipped `public/images/avatar.webp` is the template author's photo: step 1 replaces it with theirs.
 
-After the last project, ask **which projects show on the home** and in what order; set `FEATURED_PROJECTS`. Then ask whether they want to pin up to 5 projects to the top (set `pinnedAt` to today's date on the one pinned last, earlier dates on the others so the last pinned is first). Summarize all projects.
+After the last project, ask **which projects show on the home**; set `FEATURED_PROJECTS` (it only picks; the order is the same as `/work`). Then ask whether they want to pin up to 5 projects to the top (set `pinnedAt` to today's date on the one pinned last, earlier dates on the others so the last pinned is first). Summarize all projects.
 
 ### 6. Check
 

@@ -65,16 +65,12 @@ test("applyPins is deterministic on equal pinnedAt (year desc, then list order)"
   assert.deepEqual(slugs(out), ["b", "c", "a"]);
 });
 
-test("orderFeatured moves pinned featured items first", () => {
-  const items = [
-    { slug: "a" },
-    { slug: "b", pinned: true, pinnedAt: "2026-01-01" },
-    { slug: "c" },
-  ];
+test("orderFeatured keeps the order of the items, not of the featured list", () => {
+  const items = [{ slug: "b" }, { slug: "a" }, { slug: "c" }];
   assert.deepEqual(slugs(orderFeatured(items, ["a", "b", "c"])), ["b", "a", "c"]);
 });
 
-test("orderFeatured excludes pinned items outside the featured list and unknown slugs", () => {
+test("orderFeatured excludes items outside the featured list and ignores unknown slugs", () => {
   const items = [
     { slug: "a" },
     { slug: "b", pinned: true, pinnedAt: "2026-01-01" },
