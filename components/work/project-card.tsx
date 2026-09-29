@@ -55,9 +55,9 @@ export async function ProjectCard({
           <span
             role="img"
             aria-label={tWork("pinned")}
-            className="absolute right-2 top-2 flex size-8 items-center justify-center rounded-lg border border-white/20 bg-black/55 text-white backdrop-blur-sm"
+            className="absolute right-1.5 top-1.5 flex size-6 items-center justify-center rounded-md border tablet:right-2 tablet:top-2 tablet:size-8 tablet:rounded-lg border-white/20 bg-black/55 text-white backdrop-blur-sm"
           >
-            <PushPin size={16} weight="fill" aria-hidden />
+            <PushPin className="size-3 tablet:size-4" weight="fill" aria-hidden />
           </span>
         ) : null}
       </div>
@@ -80,7 +80,7 @@ export async function ProjectCard({
           {project.title}
         </span>
         {project.cardText ? (
-          <span className="mt-0.5 line-clamp-2 text-[13px] leading-[1.5] text-muted-foreground">
+          <span className="mt-0.5 line-clamp-2 text-[13px] leading-[1.5] text-muted-foreground [hyphens:auto] [overflow-wrap:anywhere]">
             {project.cardText}
           </span>
         ) : null}
