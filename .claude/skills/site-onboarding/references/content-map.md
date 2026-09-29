@@ -12,7 +12,7 @@ Paths used by the skill:
 |---|---|---|---|
 | Profile photo | `avatar` (216×216) | `public/images/avatar.webp` | `"/images/avatar.webp"` |
 | Project cover | `cover` (1280×853) | `public/projects/<slug>/cover.webp` | `"/projects/<slug>/cover.webp"` |
-| Case image | `body` (max 1280 wide) | `public/projects/<slug>/<n>.webp` | `![alt](/projects/<slug>/<n>.webp "caption")` |
+| Case image | `body` (max 1280 wide) | `public/projects/<slug>/<n>.webp` | `![alt](/projects/<slug>/<n>.webp)`, optional `note` block right after it for the source |
 
 **Site icon and share image** (optional, the template ships with a default "VB" set). Same file names, replace the file:
 - Browser tab icon: `app/icon.png`, PNG, 128×128 (square).
@@ -119,7 +119,7 @@ string. Example `"https://cal.com/anasouza"`. `""` hides the "Book call" button.
 
 ### `PROJECTS: ProjectData[]`
 
-Display order on `/work` is by `year`, newest first.
+Display order on `/work` is pinned projects first (`pinnedAt`, newest pin first, at most 5 count), then by `year`, newest first. Without any `pinnedAt` the order is by `year` alone.
 
 | Field | Format | Example | Empty |
 |---|---|---|---|
@@ -132,6 +132,7 @@ Display order on `/work` is by `year`, newest first.
 | `outcome` | Localized, optional | `{ pt: "+18% em conversão", en: "+18% conversion" }` | delete the key. Only numbers the person gave |
 | `period` | string, optional | `"2024-2025"` | delete the key |
 | `year` | number, optional | `2025` | sorting only; missing sorts last |
+| `pinnedAt` | ISO date string, optional | `"2026-09-29"` | delete the key to unpin. Pinned projects come first on `/work` (with a pin icon on the card) and first inside the home list; the newest date is first; only the 5 newest pins count |
 | `category` | one of `PROJECT_CATEGORIES` | `"saas"` | delete the key |
 | `externalLink` | URL, optional | `"https://acme.com"` | delete the key: no "Visit project" button |
 | `coverImage` | image path | `"/projects/checkout-redesign/cover.webp"` | required |
@@ -153,7 +154,7 @@ Pick from this list; adding categories is out of scope.
 
 ### `FEATURED_PROJECTS: string[]`
 
-Slugs shown on the home, in order. `[]` shows all projects. Unknown slugs are skipped.
+Slugs shown on the home, in order. `[]` shows all projects. Unknown slugs are skipped. Projects with `pinnedAt` that are in this list move to the front, newest pin first; a pinned project that is not in the list does not appear on the home.
 
 ### Case body — `content/projects/<slug>/en.md` and `pt.md`
 
@@ -176,14 +177,48 @@ Paragraphs, lists.
 
 Paragraphs, optional images.
 
-![Alt text describing the image](/projects/<slug>/1.webp "Caption shown under the image")
+![Alt text describing the image](/projects/<slug>/1.webp)
+
+```note
+Source: [Name](https://example.com)
+```
 
 ## Result
 
 Paragraphs, numbers only if given.
 ```
 
-`pt.md` uses `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado`. If the person skips Detail, omit that heading. Supported Markdown: paragraphs, `**bold**`, `*italic*`, links (external ones open in a new tab), `-` and `1.` lists, `>` quotes, images with an optional `"title"` that becomes the caption.
+Optional sections, same file (all Markdown, no raw HTML):
+
+- **Development** (`## Development` / `## Desenvolvimento`): dated updates. Each entry is `### YYYY-MM-DD` (also `YYYY-MM` or `YYYY`) followed by one paragraph. The date heading renders as a small mono muted date; other `###` headings stay normal subheadings.
+- **Sources** (`## Sources and further reading` / `## Fontes e leituras`): one fenced block per source, with the fence language `source`. Keys, one per line: `kicker`, `title`, `url`, `meta`, `description`. `title` and `url` are required and `url` must start with `http://` or `https://`; an entry without them renders nothing.
+- **Source note**: a fenced block with the language `note`, placed right after the paragraph it credits. It renders as one small muted line and accepts inline Markdown (links, bold). An empty block renders nothing.
+
+````md
+## Development
+
+### 2026-08-19
+
+One paragraph about what changed, with an [inline link](https://example.com).
+
+## Sources and further reading
+
+```source
+kicker: Article · Publisher
+title: Source title
+url: https://example.com
+meta: Author · 2026
+description: One sentence on why this source matters.
+```
+
+A paragraph that needs a credit.
+
+```note
+Source: [Name](https://example.com)
+```
+````
+
+`pt.md` uses `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado`. If the person skips Detail, omit that heading. Supported Markdown: paragraphs, `**bold**`, `*italic*`, links (external ones open in a new tab), `-` and `1.` lists, `>` quotes, images (there is no caption: a `note` block right after the image credits its source, and it is omitted when there is none).
 
 ### Example projects
 

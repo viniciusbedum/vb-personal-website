@@ -25,6 +25,7 @@
   "work": {
     "listTitle": "Work",
     "listEmpty": "No work published yet.",
+    "pinned": "Pinned",
     "client": "Client",
     "timeline": "Timeline",
     "role": "Role",

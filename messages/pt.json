@@ -25,6 +25,7 @@
   "work": {
     "listTitle": "Trabalhos",
     "listEmpty": "Nenhum trabalho publicado ainda.",
+    "pinned": "Fixado",
     "client": "Cliente",
     "timeline": "Período",
     "role": "Função",

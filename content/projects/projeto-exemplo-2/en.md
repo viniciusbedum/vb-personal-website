@@ -15,7 +15,7 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 > Highlight quote, e.g. a client testimonial.
 
-![Image description](/placeholder-thumbnail.svg "Image caption")
+![Image description](/placeholder-thumbnail.svg)
 
 ### Detail
 
@@ -29,3 +29,23 @@ Curabitur pretium tincidunt lacus, ut interdum tellus elit sed risus. Maecenas e
 Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
 
 Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores.
+
+## Development
+
+### 2026-08-19
+
+Lorem ipsum dolor sit amet, [consectetur adipiscing](https://example.com) elit, sed do eiusmod tempor.
+
+### 2026-08-05
+
+Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.
+
+## Sources and further reading
+
+```source
+kicker: Article · Publisher
+title: Source title
+url: https://example.com
+meta: Author · 2026
+description: One sentence on why this source matters.
+```

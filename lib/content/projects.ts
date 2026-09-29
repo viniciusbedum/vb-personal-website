@@ -3,6 +3,7 @@ import path from "node:path";
 import type { Project } from "./types";
 import { localize } from "./types";
 import { isProjectCategory } from "./categories";
+import { applyPins } from "./pins";
 import { PROJECTS, type ProjectData } from "./projects-data";
 
 /**
@@ -28,7 +29,10 @@ export function readProjectBody(slug: string, locale: string): string {
   }
 }
 
-function toProject(data: ProjectData, locale: string): Project {
+function toProject(
+  data: ProjectData & { pinned?: boolean },
+  locale: string,
+): Project {
   return {
     slug: data.slug,
     title: localize(data.title, locale) ?? "",
@@ -45,13 +49,13 @@ function toProject(data: ProjectData, locale: string): Project {
     coverImage: data.coverImage,
     category: isProjectCategory(data.category) ? data.category : undefined,
     cardText: localize(data.cardText, locale),
+    pinned: data.pinned,
+    pinnedAt: data.pinnedAt,
   };
 }
 
 export async function getProjects(locale: string): Promise<Project[]> {
-  return [...PROJECTS]
-    .sort((a, b) => (b.year ?? 0) - (a.year ?? 0))
-    .map((data) => toProject(data, locale));
+  return applyPins(PROJECTS).map((data) => toProject(data, locale));
 }
 
 export async function getProject(

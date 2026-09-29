@@ -60,6 +60,7 @@ export default async function WorkPage({ params }: PageProps) {
         project={project}
         locale={locale}
         priority={index === 0}
+        showPin
         sizes="(min-width: 1200px) 250px, calc(50vw - 40px)"
       />
     ),
