@@ -75,5 +75,5 @@ export const PROJECTS: ProjectData[] = [
   },
 ];
 
-/** Slugs shown on the home, in order. Empty falls back to all projects. */
+/** Slugs shown on the home. Order follows /work (pinned first, then newest year). Empty falls back to all projects. */
 export const FEATURED_PROJECTS: string[] = ["projeto-exemplo-1", "projeto-exemplo-2"];

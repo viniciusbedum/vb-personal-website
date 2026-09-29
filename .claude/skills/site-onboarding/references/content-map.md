@@ -154,7 +154,7 @@ Pick from this list; adding categories is out of scope.
 
 ### `FEATURED_PROJECTS: string[]`
 
-Slugs shown on the home, in order. `[]` shows all projects. Unknown slugs are skipped. Projects with `pinnedAt` that are in this list move to the front, newest pin first; a pinned project that is not in the list does not appear on the home.
+Slugs of the projects shown on the home. The list only picks which ones appear; the order is the same as `/work` (pinned first, newest year first). To move one first, pin it with `pinnedAt`. `[]` shows all projects. Unknown slugs are skipped; a pinned project that is not in the list does not appear on the home.
 
 ### Case body — `content/projects/<slug>/en.md` and `pt.md`
 

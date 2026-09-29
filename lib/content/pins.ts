@@ -40,29 +40,15 @@ export function applyPins<T extends Pinnable>(items: T[]): (T & { pinned: boolea
 }
 
 /**
- * Home ordering: `featuredSlugs` in listed order (unknown slugs dropped),
- * with pinned ones moved first by `pinnedAt` desc. Empty list returns
- * `items` as is.
+ * Home selection: keeps only the items whose slug is in `featuredSlugs` (unknown
+ * slugs ignored) and preserves the order of `items` (pins, then year desc, as
+ * on /work). Empty list returns `items` as is.
  */
-export function orderFeatured<
-  T extends { slug: string; pinned?: boolean; pinnedAt?: string },
->(items: T[], featuredSlugs: string[]): T[] {
+export function orderFeatured<T extends { slug: string }>(
+  items: T[],
+  featuredSlugs: string[],
+): T[] {
   if (featuredSlugs.length === 0) return items;
-
-  const featured = featuredSlugs
-    .map((slug) => items.find((item) => item.slug === slug))
-    .filter((item): item is T => Boolean(item))
-    .map((item, index) => ({ item, index }));
-
-  return featured
-    .sort((a, b) => {
-      const aPinned = Boolean(a.item.pinned);
-      if (aPinned !== Boolean(b.item.pinned)) return aPinned ? -1 : 1;
-      if (aPinned) {
-        const byPin = byPinnedAtDesc(a.item, b.item);
-        if (byPin) return byPin;
-      }
-      return a.index - b.index;
-    })
-    .map(({ item }) => item);
+  const featured = new Set(featuredSlugs);
+  return items.filter((item) => featured.has(item.slug));
 }
