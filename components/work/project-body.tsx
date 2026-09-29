@@ -1,5 +1,7 @@
 import Image from "next/image";
+import { isValidElement, type ReactNode } from "react";
 import Markdown, { type Components } from "react-markdown";
+import { isDateHeading, parseSourceBlock } from "@/lib/content/blocks";
 import { cn } from "@/lib/utils";
 
 export type BodyHeading = { id: string; text: string };
@@ -51,6 +53,38 @@ export function getBodyHeadings(body: string): BodyHeading[] {
   return computeHeadings(body).map(({ id, text }) => ({ id, text }));
 }
 
+/** Plain text of a rendered children tree (strings and nested elements). */
+function childrenText(children: ReactNode): string {
+  if (typeof children === "string" || typeof children === "number") return String(children);
+  if (Array.isArray(children)) return children.map(childrenText).join("");
+  if (isValidElement<{ children?: ReactNode }>(children)) return childrenText(children.props.children);
+  return "";
+}
+
+const LINK_CLASS = "underline underline-offset-4";
+
+/** Body link: external ones open in a new tab. */
+const bodyLink: Components["a"] = ({ children, href }) => {
+  const isExternal = /^https?:\/\//.test(href ?? "");
+  return (
+    <a
+      href={href}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={LINK_CLASS}
+    >
+      {children}
+    </a>
+  );
+};
+
+/** Inline-only Markdown for a ```note fence: paragraphs collapse into the surrounding line. */
+const noteComponents: Components = {
+  p: ({ children }) => <>{children}</>,
+  a: bodyLink,
+  strong: ({ children }) => <strong>{children}</strong>,
+  em: ({ children }) => <em>{children}</em>,
+};
+
 /**
  * Project case body: Markdown renderer for the "Corpo" section.
  * Server component — no client-side state.
@@ -70,9 +104,66 @@ export function ProjectBody({ body }: { body: string }) {
         {children}
       </h2>
     ),
-    h3: ({ children }) => (
-      <h3 className="mt-8 mb-3 text-[17px] leading-[1.4]">{children}</h3>
-    ),
+    h3: ({ children }) =>
+      isDateHeading(childrenText(children)) ? (
+        <h3 className="mt-8 mb-2 font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
+          {children}
+        </h3>
+      ) : (
+        <h3 className="mt-8 mb-3 text-[17px] leading-[1.4]">{children}</h3>
+      ),
+    pre: ({ children }) => <>{children}</>,
+    code: ({ children, className }) => {
+      const text = childrenText(children);
+      const language = /language-(\w+)/.exec(className ?? "")?.[1];
+      const isBlock = language !== undefined || text.includes("\n");
+
+      if (!isBlock) return <code className="font-mono text-[0.9em]">{children}</code>;
+
+      if (language === "source") {
+        const entry = parseSourceBlock(text);
+        if (!entry) return null;
+        return (
+          <div className="mt-[22.5px] border-b border-border pb-6 first:mt-0">
+            {entry.kicker ? (
+              <p className="font-mono text-[13px] leading-[1.2] tracking-[0.6px] uppercase text-muted-foreground">
+                {entry.kicker}
+              </p>
+            ) : null}
+            <a
+              href={entry.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cn(LINK_CLASS, "mt-2 block text-[17px] leading-[1.4]")}
+            >
+              {entry.title}
+            </a>
+            {entry.meta ? (
+              <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{entry.meta}</p>
+            ) : null}
+            {entry.description ? (
+              <p className="mt-3 text-muted-foreground">{entry.description}</p>
+            ) : null}
+          </div>
+        );
+      }
+
+      if (language === "note") {
+        const note = text.trim();
+        if (!note) return null;
+        return (
+          <p className="mt-3! text-[13px] leading-[1.4] font-normal text-muted-foreground">
+            <Markdown components={noteComponents}>{note}</Markdown>
+          </p>
+        );
+      }
+
+      return (
+        <pre className="mt-[22.5px] overflow-x-auto rounded-lg bg-muted p-4 font-mono text-[13px]">
+          <code>{text}</code>
+        </pre>
+      );
+    },
     blockquote: ({ children }) => (
       <blockquote className="mt-[22.5px] border-l border-border pl-4 text-muted-foreground">
         {children}
@@ -83,20 +174,9 @@ export function ProjectBody({ body }: { body: string }) {
     li: ({ children }) => <li className="mt-2">{children}</li>,
     strong: ({ children }) => <strong>{children}</strong>,
     em: ({ children }) => <em>{children}</em>,
-    a: ({ children, href }) => {
-      const isExternal = /^https?:\/\//.test(href ?? "");
-      return (
-        <a
-          href={href}
-          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="underline underline-offset-4"
-        >
-          {children}
-        </a>
-      );
-    },
-    img: ({ src, alt, title }) => (
-      <figure className="my-10">
+    a: bodyLink,
+    img: ({ src, alt }) => (
+      <figure className="mt-10">
         <Image
           src={typeof src === "string" ? src : ""}
           alt={alt ?? ""}
@@ -105,11 +185,6 @@ export function ProjectBody({ body }: { body: string }) {
           sizes={IMAGE_SIZES}
           className="h-auto w-full rounded-xl"
         />
-        {title ? (
-          <figcaption className="mt-3 font-mono text-[13px] text-muted-foreground">
-            {title}
-          </figcaption>
-        ) : null}
       </figure>
     ),
   };

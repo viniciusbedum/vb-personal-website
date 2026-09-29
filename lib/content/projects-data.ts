@@ -16,9 +16,11 @@ export type ProjectData = {
   coverImage: string;
   metaTitle?: Localized;
   metaDescription?: Localized;
+  /** ISO date (e.g. "2026-09-29") that pins the project first on /work and the home. Newest pin first, max 5 count; delete the line to unpin. */
+  pinnedAt?: string;
 };
 
-/** Whitelabel users edit this list. Display order on /work is by `year`, newest first (see `getProjects`). */
+/** Whitelabel users edit this list. Display order on /work is pinned projects first (`pinnedAt`, newest first), then by `year`, newest first (see `getProjects`). */
 export const PROJECTS: ProjectData[] = [
   {
     slug: "projeto-exemplo-1",
@@ -36,6 +38,7 @@ export const PROJECTS: ProjectData[] = [
     },
     period: "2024-2025",
     year: 2025,
+    pinnedAt: "2026-09-29",
     category: "saas",
     externalLink: "https://example.com",
     coverImage: "/projects/projeto-exemplo-1/cover.webp",

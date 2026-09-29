@@ -33,7 +33,7 @@ If you'd rather skip the skill and edit the files directly:
 |---|---|
 | Name, role, availability, location, email, avatar, socials, hero title | `lib/content/profile.ts` |
 | GitHub username (or hide the Build section) | `lib/content/github.ts` |
-| Project list (title, summary, client, role, outcome, period, category, cover, which are featured on the home) | `lib/content/projects-data.ts` |
+| Project list (title, summary, client, role, outcome, period, category, cover, which are featured on the home, `pinnedAt` to pin up to 5 first) | `lib/content/projects-data.ts` |
 | Case study body per project and language | `content/projects/<slug>/en.md`, `content/projects/<slug>/pt.md` |
 | Skills list | `lib/content/skills.ts` |
 | Tools list | `lib/content/tools.ts` |

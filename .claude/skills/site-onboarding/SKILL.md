@@ -96,18 +96,21 @@ Ask how many projects they want to add now (they can come back later). For each 
 **Cover image**: "Send me an image for the project cover; it will be cropped to 3:2." Run:
 `node .claude/skills/site-onboarding/scripts/prepare-image.mjs cover <input> public/projects/<slug>/cover.webp`
 
-**The case**, in four parts. Ask each part's guiding questions one at a time, then write the part in their voice from their answers (first person, short paragraphs, lists where they fit), show it, and adjust.
+**The case**, in four parts plus two optional ones. Ask each part's guiding questions one at a time, then write the part in their voice from their answers (first person, short paragraphs, lists where they fit), show it, and adjust.
 
 - **Context**: What was the problem or goal? Who was it for (client, users, team)? Why did it matter then?
 - **What I did**: What was your role, and who did you work with? What were the key decisions, and why? What did the process look like, step by step?
-- **Detail** (optional): Is there one piece worth zooming in on (a screen, a flow, a technique, a hard trade-off)? What made it interesting? Do you have images of it? For each image: run the `body` mode to `public/projects/<slug>/<n>.webp` and ask for a short caption.
+- **Detail** (optional): Is there one piece worth zooming in on (a screen, a flow, a technique, a hard trade-off)? What made it interesting? Do you have images of it? For each image: run the `body` mode to `public/projects/<slug>/<n>.webp`; images have no caption, and only if they have a source link for it, add a `note` block right after the image (format in content-map).
 - **Result**: What changed after? Any numbers (conversion, revenue, time saved, users)? If there are no numbers, what was the qualitative outcome (feedback, launch, what the client did next)?
+
+- **Development** (optional): Were there dated updates worth recording (a release, a milestone, a change)? For each: the date and one short paragraph. Skip it if there are none.
+- **Sources** (optional): Are there links worth crediting (articles, docs, repos, press)? For each: kind, title, link, who and where, one line on why. Also ask if any paragraph or image needs a short source line. If they have no links, omit the `source` and `note` blocks entirely.
 
 Write both `en.md` and `pt.md` following the heading structure in content-map. Never add numbers they did not give.
 
 **When the first real project is saved:** remove the examples. Delete the `projeto-exemplo-1` and `projeto-exemplo-2` entries from `PROJECTS`, delete `content/projects/projeto-exemplo-1/` and `content/projects/projeto-exemplo-2/`, delete `public/projects/projeto-exemplo-1/` and `public/projects/projeto-exemplo-2/` (their example covers), and remove their slugs from `FEATURED_PROJECTS`. Keep `public/placeholder-thumbnail.svg` in place regardless (it is the fallback for empty images). The shipped `public/images/avatar.webp` is the template author's photo: step 1 replaces it with theirs.
 
-After the last project, ask **which projects show on the home** and in what order; set `FEATURED_PROJECTS`. Summarize all projects.
+After the last project, ask **which projects show on the home** and in what order; set `FEATURED_PROJECTS`. Then ask whether they want to pin up to 5 projects to the top (set `pinnedAt` to today's date on the one pinned last, earlier dates on the others so the last pinned is first). Summarize all projects.
 
 ### 6. Check
 

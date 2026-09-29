@@ -29,6 +29,8 @@ export type Project = {
   coverImage: string;
   category?: ProjectCategory;
   cardText?: string;
+  pinned?: boolean;
+  pinnedAt?: string;
 };
 
 export type HomeProfile = {

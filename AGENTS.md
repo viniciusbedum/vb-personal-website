@@ -31,9 +31,9 @@ where content comes from; pages call functions like `getHome`,
   falls back to the default graph (label "your-handle"). Set
   `SHOW_BUILD_SECTION = false` to hide the Build section.
 - `lib/content/projects-data.ts` — the project list and which ones are
-  featured on the home.
+  featured on the home; `pinnedAt` pins up to 5 first.
 - `content/projects/<slug>/{en,pt}.md` — the case study body per project
-  and language (Markdown).
+  and language (Markdown; optional Development, Sources and source-note blocks, see content-map).
 - `lib/content/{skills,tools,links,languages,contact}.ts` — skills list,
   tools list, links list, languages, booking URL.
 - `messages/{en,pt}.json` — page copy (headings, intros, static text).

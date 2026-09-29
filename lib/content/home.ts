@@ -2,17 +2,14 @@ import type { HomeContent, HomeProfile, Project } from "./types";
 import { localize } from "./types";
 import { PROFILE } from "./profile";
 import { FEATURED_PROJECTS } from "./projects-data";
+import { orderFeatured } from "./pins";
 import { getProjects } from "./projects";
 
 export async function getHome(locale: string): Promise<HomeContent> {
   const projects = await getProjects(locale);
   const roleText = localize(PROFILE.role, locale) ?? PROFILE.role.pt;
 
-  const featuredProjects: Project[] = FEATURED_PROJECTS.length
-    ? FEATURED_PROJECTS.map((slug) => projects.find((project) => project.slug === slug)).filter(
-        (project): project is Project => Boolean(project),
-      )
-    : projects;
+  const featuredProjects: Project[] = orderFeatured(projects, FEATURED_PROJECTS);
 
   const profile: HomeProfile = {
     name: PROFILE.name,
