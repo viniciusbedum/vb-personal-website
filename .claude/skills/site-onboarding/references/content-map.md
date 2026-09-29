@@ -222,7 +222,7 @@ Source: [Name](https://example.com)
 
 ### Example projects
 
-`projeto-exemplo-1` and `projeto-exemplo-2`: entries in `PROJECTS`, slugs in `FEATURED_PROJECTS`, folders in `content/projects/` and their covers in `public/projects/`. Remove all of them when the first real project is saved. Keep `public/placeholder-thumbnail.svg` in place (fallback for an empty image). The shipped `public/images/avatar.webp` is the template author's photo; the profile step overwrites it with the person's own.
+`projeto-exemplo-1` and `projeto-exemplo-2`: entries in `PROJECTS`, slugs in `FEATURED_PROJECTS`, folders in `content/projects/` and their covers in `public/projects/`. Hide them, do not delete them, when the first real project is saved: remove the entries from `PROJECTS` and the slugs from `FEATURED_PROJECTS`, and keep the folders and covers. Unlisted, they never become pages, so they stay in the code as hidden models to duplicate for the next project. They are small, and keeping them means the shipped files stay untouched, which keeps future template updates (`git merge` from this repo) free of conflicts for anyone who follows them. Keep `public/placeholder-thumbnail.svg` in place (fallback for an empty image). The shipped `public/images/avatar.webp` is the template author's photo; the profile step overwrites it with the person's own.
 
 ## Footer credit
 
