@@ -134,7 +134,7 @@ export function ProjectBody({ body }: { body: string }) {
               href={entry.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(LINK_CLASS, "mt-2 block text-[17px] leading-[1.4]")}
+              className={cn(LINK_CLASS, "mt-2 block text-[15px] leading-[1.5]")}
             >
               {entry.title}
             </a>
