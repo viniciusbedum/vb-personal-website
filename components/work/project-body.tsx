@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { isValidElement, type ReactNode } from "react";
-import Markdown, { type Components } from "react-markdown";
+import Markdown, { type Components, type ExtraProps } from "react-markdown";
 import { isDateHeading, parseSourceBlock } from "@/lib/content/blocks";
 import { cn } from "@/lib/utils";
 
@@ -61,6 +61,18 @@ function childrenText(children: ReactNode): string {
   return "";
 }
 
+/** True when a paragraph node holds only images (bare or wrapped in a link), ignoring whitespace text. */
+function holdsOnlyImages(node: NonNullable<ExtraProps["node"]>): boolean {
+  let images = 0;
+  for (const child of node.children) {
+    if (child.type === "text" && !child.value.trim()) continue;
+    if (child.type !== "element") return false;
+    if (child.tagName === "img" || (child.tagName === "a" && holdsOnlyImages(child))) images += 1;
+    else return false;
+  }
+  return images > 0;
+}
+
 const LINK_CLASS = "underline underline-offset-4 transition-colors hover:text-foreground";
 
 /** Body link: external ones open in a new tab. */
@@ -95,7 +107,9 @@ export function ProjectBody({ body }: { body: string }) {
   );
 
   const components: Components = {
-    p: ({ children }) => <p>{children}</p>,
+    // An image renders as a <figure>, which is not allowed inside <p>.
+    p: ({ children, node }) =>
+      node && holdsOnlyImages(node) ? <>{children}</> : <p>{children}</p>,
     h2: ({ children, node }) => (
       <h2
         id={node?.position ? headingsByLine.get(node.position.start.line) : undefined}
