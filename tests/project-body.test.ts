@@ -32,3 +32,20 @@ test("a paragraph with only text or only a link keeps its paragraph", () => {
   assert.match(render("Just text."), /<p>Just text\.<\/p>/);
   assert.match(render("[A link](https://example.com)"), /<p><a [^>]*>A link<\/a><\/p>/);
 });
+
+test("a cards block renders a grid with one figure per card", () => {
+  const html = render(
+    "```cards\nimage: /placeholder-thumbnail.svg\nalt: First\ntitle: One\ntext: About one.\n\nimage: /placeholder-thumbnail.svg\nalt: Second\n```",
+  );
+
+  assert.match(html, /sm:grid-cols-2/);
+  assert.equal(html.match(/<figure/g)?.length, 2);
+  assert.equal(html.match(/<figcaption/g)?.length, 1);
+  assert.match(html, /<p class="text-foreground">One<\/p>/);
+  assert.match(html, /About one\./);
+  assert.equal(html.includes("<pre"), false);
+});
+
+test("a cards block without a valid card renders nothing", () => {
+  assert.equal(render("```cards\ntitle: No image\n```").includes("<figure"), false);
+});

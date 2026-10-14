@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { isDateHeading, parseSourceBlock } from "../lib/content/blocks";
+import { isDateHeading, parseCardsBlock, parseSourceBlock } from "../lib/content/blocks";
 
 test("parseSourceBlock reads all five fields", () => {
   assert.deepEqual(
@@ -43,4 +43,26 @@ test("isDateHeading accepts YYYY, YYYY-MM and YYYY-MM-DD only", () => {
   assert.equal(isDateHeading("2026"), true);
   assert.equal(isDateHeading("Development"), false);
   assert.equal(isDateHeading("2026-8-1"), false);
+});
+
+test("parseCardsBlock reads cards separated by a blank line", () => {
+  assert.deepEqual(
+    parseCardsBlock(
+      "image: /projects/a/1.webp\nalt: First\ntitle: One\ntext: Text: with a colon\n\nimage: /projects/a/2.webp\nalt: Second",
+    ),
+    [
+      { image: "/projects/a/1.webp", alt: "First", title: "One", text: "Text: with a colon" },
+      { image: "/projects/a/2.webp", alt: "Second" },
+    ],
+  );
+});
+
+test("parseCardsBlock skips cards without a site image path and defaults alt to empty", () => {
+  assert.deepEqual(
+    parseCardsBlock(
+      "title: No image\n\nimage: https://example.com/a.png\n\nimage: //example.com/a.png\n\nimage: /ok.webp\nother: ignored",
+    ),
+    [{ image: "/ok.webp", alt: "" }],
+  );
+  assert.deepEqual(parseCardsBlock(""), []);
 });

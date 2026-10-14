@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { isValidElement, type ReactNode } from "react";
 import Markdown, { type Components, type ExtraProps } from "react-markdown";
-import { isDateHeading, parseSourceBlock } from "@/lib/content/blocks";
+import { isDateHeading, parseCardsBlock, parseSourceBlock } from "@/lib/content/blocks";
 import { cn } from "@/lib/utils";
 
 export type BodyHeading = { id: string; text: string };
@@ -9,6 +9,7 @@ export type BodyHeading = { id: string; text: string };
 type LinedHeading = BodyHeading & { line: number };
 
 const IMAGE_SIZES = "(min-width: 810px) 640px, calc(100vw - 32px)";
+const CARD_IMAGE_SIZES = "(min-width: 640px) 312px, calc(100vw - 32px)";
 
 /** Slug an `h2` heading text: NFD, strip diacritics, lowercase, non `[a-z0-9]` runs → `-`, trim, empty → "secao". */
 function slugifyHeading(text: string): string {
@@ -158,6 +159,35 @@ export function ProjectBody({ body }: { body: string }) {
             {entry.description ? (
               <p className="mt-3 text-muted-foreground">{entry.description}</p>
             ) : null}
+          </div>
+        );
+      }
+
+      if (language === "cards") {
+        const cards = parseCardsBlock(text);
+        if (cards.length === 0) return null;
+        return (
+          <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+            {cards.map((card, index) => (
+              <figure key={index}>
+                <Image
+                  src={card.image}
+                  alt={card.alt}
+                  width={1280}
+                  height={853}
+                  sizes={CARD_IMAGE_SIZES}
+                  className="h-auto w-full rounded-xl"
+                />
+                {card.title || card.text ? (
+                  <figcaption className="mt-3">
+                    {card.title ? <p className="text-foreground">{card.title}</p> : null}
+                    {card.text ? (
+                      <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{card.text}</p>
+                    ) : null}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ))}
           </div>
         );
       }

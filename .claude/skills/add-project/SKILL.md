@@ -23,6 +23,7 @@ Read first: `.claude/skills/site-onboarding/references/content-map.md`, section 
 - Never read, create or edit `.env` files. Do not change layout, design or components; this skill only adds content.
 - Keep the code style of `lib/content/projects-data.ts` (quotes, commas, indentation).
 - Include `note` blocks (after a paragraph or an image) and `source` blocks only when the person supplied links; otherwise omit them. Add Development entries (`### YYYY-MM-DD` + paragraph) only when the person supplied dated updates. Formats are in content-map.
+- The `cards` block (a two-column grid of image, title and text) is off by default. Use it only when the person asks for a grid or sends several pieces of media of the same kind with a short text each; otherwise use normal images. Format in content-map.
 
 ## Flow
 
