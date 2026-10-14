@@ -50,7 +50,8 @@ export type CardEntry = {
  * Parse the body of a ```cards fence: cards separated by a blank line,
  * one `key: value` per line (keys: image, alt, title, text). `image` is
  * required and must be a path on this site (starts with `/`); a card
- * without it is skipped. Unknown keys are ignored.
+ * without it is skipped. Unknown keys are ignored. `text` may carry inline
+ * Markdown (links, bold); it is rendered by the case body.
  */
 export function parseCardsBlock(raw: string): CardEntry[] {
   const cards: CardEntry[] = [];

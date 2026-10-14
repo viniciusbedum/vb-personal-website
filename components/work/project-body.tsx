@@ -100,7 +100,7 @@ const bodyLink: Components["a"] = ({ children, href }) => {
   );
 };
 
-/** Inline-only Markdown for a ```note fence: paragraphs collapse into the surrounding line. */
+/** Inline-only Markdown for a ```note fence and for the text of a card: paragraphs collapse into the surrounding line. */
 const noteComponents: Components = {
   p: ({ children }) => <>{children}</>,
   a: bodyLink,
@@ -195,7 +195,9 @@ export function ProjectBody({
         return (
           <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
             {cards.map((card, index) => (
-              <ZoomableCard key={index} card={card} closeLabel={closeLabel} />
+              <ZoomableCard key={index} card={card} closeLabel={closeLabel}>
+                {card.text ? <Markdown components={noteComponents}>{card.text}</Markdown> : null}
+              </ZoomableCard>
             ))}
           </div>
         );
