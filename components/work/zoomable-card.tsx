@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { ArrowsOutSimple, X } from "@phosphor-icons/react";
 import type { CardEntry } from "@/lib/content/blocks";
 
@@ -13,8 +13,18 @@ const ZOOM_SIZES = "(min-width: 892px) 836px, calc(100vw - 56px)";
  * a click opens it large in a
  * native modal dialog over a darkened, blurred page; Esc, the close button
  * or a click outside closes it. The large image only loads once opened.
+ * The text comes in as children, rendered on the server.
  */
-export function ZoomableCard({ card, closeLabel }: { card: CardEntry; closeLabel: string }) {
+export function ZoomableCard({
+  card,
+  closeLabel,
+  children,
+}: {
+  card: CardEntry;
+  closeLabel: string;
+  /** The card text, already rendered (inline Markdown). */
+  children?: ReactNode;
+}) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
 
@@ -51,7 +61,7 @@ export function ZoomableCard({ card, closeLabel }: { card: CardEntry; closeLabel
         <figcaption className="mt-3">
           {card.title ? <p className="text-foreground">{card.title}</p> : null}
           {card.text ? (
-            <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{card.text}</p>
+            <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{children}</p>
           ) : null}
         </figcaption>
       ) : null}
@@ -87,7 +97,7 @@ export function ZoomableCard({ card, closeLabel }: { card: CardEntry; closeLabel
               <div className="mt-3 px-1 pb-1">
                 {card.title ? <p>{card.title}</p> : null}
                 {card.text ? (
-                  <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{card.text}</p>
+                  <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{children}</p>
                 ) : null}
               </div>
             ) : null}

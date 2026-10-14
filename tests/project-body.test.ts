@@ -74,3 +74,11 @@ test("beforeAppendix is left out when the body has no closing section", () => {
   assert.equal(renderWithCta(body).includes(">Visit<"), false);
   assert.equal(hasAppendix("## Sources and further reading\n\nText."), true);
 });
+
+test("the text of a card accepts inline Markdown links", () => {
+  const html = render(
+    "```cards\nimage: /placeholder-thumbnail.svg\ntitle: One\ntext: 2023 · [post](https://example.com/a?b=1)\n```",
+  );
+
+  assert.match(html, /2023 · <a href="https:\/\/example\.com\/a\?b=1" target="_blank"/);
+});
