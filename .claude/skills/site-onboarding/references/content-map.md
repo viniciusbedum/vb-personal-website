@@ -135,9 +135,13 @@ Display order on `/work` is pinned projects first (`pinnedAt`, newest pin first,
 | `pinnedAt` | ISO date string, optional | `"2026-09-29"` | delete the key to unpin. Pinned projects come first on `/work` (with a pin icon on the card) and first inside the home list; the newest date is first; only the 5 newest pins count |
 | `category` | one of `PROJECT_CATEGORIES` | `"saas"` | delete the key |
 | `externalLink` | URL, optional | `"https://acme.com"` | delete the key: no "Visit project" button |
+| `githubUrl` | URL, optional (off by default) | `"https://github.com/acme/checkout"` | delete the key: no "GitHub" row in the case header. Only when the person gives a repository link |
+| `linkUrl` | URL, optional (off by default) | `"https://acme.com/case"` | delete the key: no "Link" row in the case header. Only when the person asks for a link in the header besides the "Visit project" button |
 | `coverImage` | image path | `"/projects/checkout-redesign/cover.webp"` | required |
 | `metaTitle` | Localized, optional | search/share title | delete the key (the title is used) |
 | `metaDescription` | Localized, optional | search/share description | delete the key (the summary is used) |
+
+`githubUrl` and `linkUrl` accept only `http://` or `https://` addresses; any other value is ignored. Each one shows as a row in the case header, after client, role and result, with the address as the text (no protocol), and always opens in a new tab.
 
 Categories (`lib/content/categories.ts`, `PROJECT_CATEGORIES`), with labels from `messages/*.json` `projectCategories.*`:
 

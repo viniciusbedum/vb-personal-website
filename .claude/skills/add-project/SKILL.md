@@ -12,7 +12,7 @@ Read first: `.claude/skills/site-onboarding/references/content-map.md`, section 
 ## What a project is made of
 
 - **Card** (Work page and home): cover image, period, category pill, title, short card text.
-- **Case page**: cover, title, "period · category", summary, a table with client, role and result, an "On this page" index built from the `##` headings, the case body, a "Visit project" button (external link), and other projects at the bottom.
+- **Case page**: cover, title, "period · category", summary, a table with client, role and result (plus optional GitHub and Link rows), an "On this page" index built from the `##` headings, the case body, a "Visit project" button (external link), and other projects at the bottom.
 - **Case body**: Context, What I did (lists, an optional real quote, images, each with an optional source note), Detail (optional), Result, and optionally Development (dated updates) and Sources (links).
 
 ## Rules
@@ -23,6 +23,7 @@ Read first: `.claude/skills/site-onboarding/references/content-map.md`, section 
 - Never read, create or edit `.env` files. Do not change layout, design or components; this skill only adds content.
 - Keep the code style of `lib/content/projects-data.ts` (quotes, commas, indentation).
 - Include `note` blocks (after a paragraph or an image) and `source` blocks only when the person supplied links; otherwise omit them. Add Development entries (`### YYYY-MM-DD` + paragraph) only when the person supplied dated updates. Formats are in content-map.
+- `githubUrl` and `linkUrl` (the GitHub and Link rows of the case header) are off by default. Add one only when the person gives that link and wants it in the header.
 - The `cards` block (a two-column grid of image, title and text) is off by default. Use it only when the person asks for a grid or sends several pieces of media of the same kind with a short text each; otherwise use normal images. Format in content-map.
 
 ## Flow

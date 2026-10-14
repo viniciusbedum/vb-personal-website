@@ -13,6 +13,10 @@ export type ProjectData = {
   year?: number;
   category?: ProjectCategory;
   externalLink?: string;
+  /** Repository URL (http or https). Shows as a "GitHub" row in the case header; delete the line to hide it. */
+  githubUrl?: string;
+  /** Any other URL (http or https). Shows as a "Link" row in the case header; delete the line to hide it. */
+  linkUrl?: string;
   coverImage: string;
   metaTitle?: Localized;
   metaDescription?: Localized;

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/ssr";
+import { urlLabel } from "@/lib/content/projects";
 import type { Project } from "@/lib/content/types";
 import { buttonVariants } from "@/components/ui/button";
 import { ProjectBody, getBodyHeadings } from "@/components/work/project-body";
@@ -42,7 +43,9 @@ export async function ProjectDetail({
     { label: t("client"), value: project.client },
     { label: t("role"), value: project.role },
     { label: t("outcome"), value: project.outcome },
-  ].filter((row): row is { label: string; value: string } => Boolean(row.value));
+    { label: t("github"), value: project.githubUrl, isLink: true },
+    { label: t("link"), value: project.linkUrl, isLink: true },
+  ].filter((row): row is { label: string; value: string; isLink?: boolean } => Boolean(row.value));
 
   return (
     <main className="mx-auto w-full max-w-[640px] px-4 py-10 tablet:px-0">
@@ -83,7 +86,20 @@ export async function ProjectDetail({
           {rows.map((row) => (
             <div key={row.label} className="contents">
               <dt className="text-muted-foreground">{row.label}</dt>
-              <dd>{row.value}</dd>
+              <dd>
+                {row.isLink ? (
+                  <a
+                    href={row.value}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="break-all underline underline-offset-4 transition-colors hover:text-muted-foreground"
+                  >
+                    {urlLabel(row.value)}
+                  </a>
+                ) : (
+                  row.value
+                )}
+              </dd>
             </div>
           ))}
         </dl>

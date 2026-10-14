@@ -30,6 +30,8 @@
     "timeline": "Timeline",
     "role": "Role",
     "outcome": "Outcome",
+    "github": "GitHub",
+    "link": "Link",
     "visitLive": "Visit project",
     "eyebrow": "Proof of work",
     "heading": "Page title (e.g. Projects I helped build)",
