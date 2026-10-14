@@ -142,7 +142,7 @@ export async function ProjectDetail({
         </nav>
       ) : null}
 
-      <ProjectBody body={project.body} beforeAppendix={visitButton} />
+      <ProjectBody body={project.body} beforeAppendix={visitButton} closeLabel={t("closeImage")} />
 
       {visitInBody ? null : visitButton}
 

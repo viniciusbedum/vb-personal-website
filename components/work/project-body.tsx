@@ -7,6 +7,7 @@ import {
   parseCardsBlock,
   parseSourceBlock,
 } from "@/lib/content/blocks";
+import { ZoomableCard } from "@/components/work/zoomable-card";
 import { cn } from "@/lib/utils";
 
 export type BodyHeading = { id: string; text: string };
@@ -14,7 +15,6 @@ export type BodyHeading = { id: string; text: string };
 type LinedHeading = BodyHeading & { line: number };
 
 const IMAGE_SIZES = "(min-width: 810px) 640px, calc(100vw - 32px)";
-const CARD_IMAGE_SIZES = "(min-width: 640px) 312px, calc(100vw - 32px)";
 
 /** Slug an `h2` heading text: NFD, strip diacritics, lowercase, non `[a-z0-9]` runs → `-`, trim, empty → "secao". */
 function slugifyHeading(text: string): string {
@@ -112,13 +112,16 @@ const noteComponents: Components = {
  * Project case body: Markdown renderer for the "Corpo" section.
  * Server component — no client-side state. `beforeAppendix` renders once,
  * right above the first Development or Sources heading, when there is one.
+ * `closeLabel` names the close button of an enlarged card image.
  */
 export function ProjectBody({
   body,
   beforeAppendix,
+  closeLabel = "Close",
 }: {
   body: string;
   beforeAppendix?: ReactNode;
+  closeLabel?: string;
 }) {
   const headings = computeHeadings(body);
   const headingsByLine = new Map(headings.map((heading) => [heading.line, heading.id]));
@@ -192,24 +195,7 @@ export function ProjectBody({
         return (
           <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
             {cards.map((card, index) => (
-              <figure key={index}>
-                <Image
-                  src={card.image}
-                  alt={card.alt}
-                  width={1280}
-                  height={853}
-                  sizes={CARD_IMAGE_SIZES}
-                  className="h-auto w-full rounded-xl"
-                />
-                {card.title || card.text ? (
-                  <figcaption className="mt-3">
-                    {card.title ? <p className="text-foreground">{card.title}</p> : null}
-                    {card.text ? (
-                      <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{card.text}</p>
-                    ) : null}
-                  </figcaption>
-                ) : null}
-              </figure>
+              <ZoomableCard key={index} card={card} closeLabel={closeLabel} />
             ))}
           </div>
         );

@@ -45,6 +45,9 @@ test("a cards block renders a grid with one figure per card", () => {
   assert.match(html, /sm:grid-cols-2/);
   assert.equal(html.match(/<figure/g)?.length, 2);
   assert.equal(html.match(/<figcaption/g)?.length, 1);
+  assert.equal(html.match(/<button type="button"/g)?.length, 2);
+  assert.equal(html.match(/<dialog/g)?.length, 2);
+  assert.equal(html.match(/<img/g)?.length, 2);
   assert.match(html, /<p class="text-foreground">One<\/p>/);
   assert.match(html, /About one\./);
   assert.equal(html.includes("<pre"), false);
