@@ -1,7 +1,12 @@
 import Image from "next/image";
 import { isValidElement, type ReactNode } from "react";
 import Markdown, { type Components, type ExtraProps } from "react-markdown";
-import { isDateHeading, parseSourceBlock } from "@/lib/content/blocks";
+import {
+  isAppendixHeading,
+  isDateHeading,
+  parseCardsBlock,
+  parseSourceBlock,
+} from "@/lib/content/blocks";
 import { cn } from "@/lib/utils";
 
 export type BodyHeading = { id: string; text: string };
@@ -9,6 +14,7 @@ export type BodyHeading = { id: string; text: string };
 type LinedHeading = BodyHeading & { line: number };
 
 const IMAGE_SIZES = "(min-width: 810px) 640px, calc(100vw - 32px)";
+const CARD_IMAGE_SIZES = "(min-width: 640px) 312px, calc(100vw - 32px)";
 
 /** Slug an `h2` heading text: NFD, strip diacritics, lowercase, non `[a-z0-9]` runs → `-`, trim, empty → "secao". */
 function slugifyHeading(text: string): string {
@@ -51,6 +57,11 @@ function computeHeadings(body: string): LinedHeading[] {
 /** `h2` headings in document order, for the "on this page" index — same ids as the rendered body. */
 export function getBodyHeadings(body: string): BodyHeading[] {
   return computeHeadings(body).map(({ id, text }) => ({ id, text }));
+}
+
+/** True when the body has a Development or Sources section; `beforeAppendix` renders right above the first one. */
+export function hasAppendix(body: string): boolean {
+  return computeHeadings(body).some((heading) => isAppendixHeading(heading.text));
 }
 
 /** Plain text of a rendered children tree (strings and nested elements). */
@@ -99,25 +110,38 @@ const noteComponents: Components = {
 
 /**
  * Project case body: Markdown renderer for the "Corpo" section.
- * Server component — no client-side state.
+ * Server component — no client-side state. `beforeAppendix` renders once,
+ * right above the first Development or Sources heading, when there is one.
  */
-export function ProjectBody({ body }: { body: string }) {
-  const headingsByLine = new Map(
-    computeHeadings(body).map((heading) => [heading.line, heading.id]),
-  );
+export function ProjectBody({
+  body,
+  beforeAppendix,
+}: {
+  body: string;
+  beforeAppendix?: ReactNode;
+}) {
+  const headings = computeHeadings(body);
+  const headingsByLine = new Map(headings.map((heading) => [heading.line, heading.id]));
+  const appendixLine = headings.find((heading) => isAppendixHeading(heading.text))?.line;
 
   const components: Components = {
     // An image renders as a <figure>, which is not allowed inside <p>.
     p: ({ children, node }) =>
       node && holdsOnlyImages(node) ? <>{children}</> : <p>{children}</p>,
-    h2: ({ children, node }) => (
-      <h2
-        id={node?.position ? headingsByLine.get(node.position.start.line) : undefined}
-        className="mt-12 mb-4 text-xl leading-[1.3] text-foreground scroll-mt-8"
-      >
-        {children}
-      </h2>
-    ),
+    h2: ({ children, node }) => {
+      const line = node?.position?.start.line;
+      return (
+        <>
+          {line !== undefined && line === appendixLine ? beforeAppendix : null}
+          <h2
+            id={line !== undefined ? headingsByLine.get(line) : undefined}
+            className="mt-12 mb-4 text-xl leading-[1.3] text-foreground scroll-mt-8"
+          >
+            {children}
+          </h2>
+        </>
+      );
+    },
     h3: ({ children }) =>
       isDateHeading(childrenText(children)) ? (
         <h3 className="mt-8 mb-2 font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
@@ -158,6 +182,35 @@ export function ProjectBody({ body }: { body: string }) {
             {entry.description ? (
               <p className="mt-3 text-muted-foreground">{entry.description}</p>
             ) : null}
+          </div>
+        );
+      }
+
+      if (language === "cards") {
+        const cards = parseCardsBlock(text);
+        if (cards.length === 0) return null;
+        return (
+          <div className="mt-10 grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+            {cards.map((card, index) => (
+              <figure key={index}>
+                <Image
+                  src={card.image}
+                  alt={card.alt}
+                  width={1280}
+                  height={853}
+                  sizes={CARD_IMAGE_SIZES}
+                  className="h-auto w-full rounded-xl"
+                />
+                {card.title || card.text ? (
+                  <figcaption className="mt-3">
+                    {card.title ? <p className="text-foreground">{card.title}</p> : null}
+                    {card.text ? (
+                      <p className="mt-1 text-[13px] leading-[1.4] text-muted-foreground">{card.text}</p>
+                    ) : null}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ))}
           </div>
         );
       }

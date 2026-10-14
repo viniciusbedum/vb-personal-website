@@ -134,10 +134,14 @@ Display order on `/work` is pinned projects first (`pinnedAt`, newest pin first,
 | `year` | number, optional | `2025` | sorting only; missing sorts last |
 | `pinnedAt` | ISO date string, optional | `"2026-09-29"` | delete the key to unpin. Pinned projects come first on `/work` (with a pin icon on the card) and first inside the home list; the newest date is first; only the 5 newest pins count |
 | `category` | one of `PROJECT_CATEGORIES` | `"saas"` | delete the key |
-| `externalLink` | URL, optional | `"https://acme.com"` | delete the key: no "Visit project" button |
+| `externalLink` | URL, optional | `"https://acme.com"` | delete the key: no "Visit project" button. The button sits right above `## Development` or `## Sources and further reading` when the case has one of them, and at the end of the case otherwise |
+| `githubUrl` | URL, optional (off by default) | `"https://github.com/acme/checkout"` | delete the key: no "GitHub" row in the case header. Only when the person gives a repository link |
+| `linkUrl` | URL, optional (off by default) | `"https://acme.com/case"` | delete the key: no "Link" row in the case header. Only when the person asks for a link in the header besides the "Visit project" button |
 | `coverImage` | image path | `"/projects/checkout-redesign/cover.webp"` | required |
 | `metaTitle` | Localized, optional | search/share title | delete the key (the title is used) |
 | `metaDescription` | Localized, optional | search/share description | delete the key (the summary is used) |
+
+`githubUrl` and `linkUrl` accept only `http://` or `https://` addresses; any other value is ignored. Each one shows as a row in the case header, after client, role and result, with the address as the text (no protocol), and always opens in a new tab.
 
 Categories (`lib/content/categories.ts`, `PROJECT_CATEGORIES`), with labels from `messages/*.json` `projectCategories.*`:
 
@@ -193,6 +197,7 @@ Optional sections, same file (all Markdown, no raw HTML):
 - **Development** (`## Development` / `## Desenvolvimento`): dated updates. Each entry is `### YYYY-MM-DD` (also `YYYY-MM` or `YYYY`) followed by one paragraph. The date heading renders as a small mono muted date; other `###` headings stay normal subheadings.
 - **Sources** (`## Sources and further reading` / `## Fontes e leituras`): one fenced block per source, with the fence language `source`. Keys, one per line: `kicker`, `title`, `url`, `meta`, `description`. `title` and `url` are required and `url` must start with `http://` or `https://`; an entry without them renders nothing.
 - **Source note**: a fenced block with the language `note`, placed right after the paragraph it credits. It renders as one small muted line and accepts inline Markdown (links, bold). An empty block renders nothing.
+- **Cards** (off by default; most cases do not need it): a fenced block with the language `cards`, for a set of images or short clips that each need a title and a line of text. Use it only when the person asks for a grid, or hands over several pieces of media of the same kind with a short text each. Otherwise use normal images. Cards are separated by a blank line; keys, one per line: `image`, `alt`, `title`, `text`. `image` is required and must be a path on this site (starts with `/`); a card without it is skipped, and a block with no valid card renders nothing. It renders two columns (one on a phone), the image on top and the text under it. `title` and `text` are plain text. An even number of cards fills the grid.
 
 ````md
 ## Development
@@ -215,6 +220,18 @@ A paragraph that needs a credit.
 
 ```note
 Source: [Name](https://example.com)
+```
+
+```cards
+image: /projects/<slug>/2.webp
+alt: Alt text describing the first image
+title: First card title
+text: One line about the first card.
+
+image: /projects/<slug>/3.webp
+alt: Alt text describing the second image
+title: Second card title
+text: One line about the second card.
 ```
 ````
 

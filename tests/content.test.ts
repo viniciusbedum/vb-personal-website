@@ -5,7 +5,7 @@ import os from "node:os";
 import path from "node:path";
 
 import { getBodyHeadings } from "../components/work/project-body";
-import { readProjectBody } from "../lib/content/projects";
+import { httpUrl, readProjectBody, urlLabel } from "../lib/content/projects";
 import { resolveSiteUrl } from "../lib/site-url";
 
 test("getBodyHeadings slugs and dedupes h2 headings in document order", () => {
@@ -46,4 +46,19 @@ test("resolveSiteUrl resolves Vercel, explicit and fallback URLs", () => {
     "https://a.com",
   );
   assert.equal(resolveSiteUrl({}), "http://localhost:3000");
+});
+
+test("httpUrl keeps only http(s) addresses", () => {
+  assert.equal(httpUrl(" https://github.com/acme/app "), "https://github.com/acme/app");
+  assert.equal(httpUrl("http://example.com"), "http://example.com");
+  assert.equal(httpUrl("javascript:alert(1)"), undefined);
+  assert.equal(httpUrl("github.com/acme/app"), undefined);
+  assert.equal(httpUrl("https://example.com/a b"), undefined);
+  assert.equal(httpUrl(""), undefined);
+  assert.equal(httpUrl(undefined), undefined);
+});
+
+test("urlLabel drops the protocol, www and the trailing slash", () => {
+  assert.equal(urlLabel("https://www.example.com/"), "example.com");
+  assert.equal(urlLabel("https://github.com/acme/app"), "github.com/acme/app");
 });

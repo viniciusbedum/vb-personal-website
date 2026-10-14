@@ -29,6 +29,17 @@ export function readProjectBody(slug: string, locale: string): string {
   }
 }
 
+/** The trimmed value when it is an http(s) URL; anything else is dropped. */
+export function httpUrl(value: string | undefined): string | undefined {
+  const url = value?.trim();
+  return url && /^https?:\/\/\S+$/i.test(url) ? url : undefined;
+}
+
+/** A URL as shown to the reader: no protocol, no `www.`, no trailing slash. */
+export function urlLabel(url: string): string {
+  return url.replace(/^https?:\/\//i, "").replace(/^www\./i, "").replace(/\/$/, "");
+}
+
 function toProject(
   data: ProjectData & { pinned?: boolean },
   locale: string,
@@ -44,6 +55,8 @@ function toProject(
     outcome: localize(data.outcome, locale),
     body: readProjectBody(data.slug, locale),
     externalLink: data.externalLink,
+    githubUrl: httpUrl(data.githubUrl),
+    linkUrl: httpUrl(data.linkUrl),
     metaTitle: localize(data.metaTitle, locale),
     metaDescription: localize(data.metaDescription, locale),
     coverImage: data.coverImage,

@@ -24,6 +24,8 @@ export type Project = {
   /** Case body, Markdown. */
   body: string;
   externalLink?: string;
+  githubUrl?: string;
+  linkUrl?: string;
   metaTitle?: string;
   metaDescription?: string;
   coverImage: string;
