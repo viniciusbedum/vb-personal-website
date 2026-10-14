@@ -3,7 +3,11 @@ import assert from "node:assert/strict";
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 
-import { ProjectBody } from "../components/work/project-body";
+import { ProjectBody, hasAppendix } from "../components/work/project-body";
+
+const cta = createElement("a", { href: "https://example.com" }, "Visit");
+const renderWithCta = (body: string) =>
+  renderToStaticMarkup(createElement(ProjectBody, { body, beforeAppendix: cta }));
 
 const render = (body: string) => renderToStaticMarkup(createElement(ProjectBody, { body }));
 
@@ -48,4 +52,22 @@ test("a cards block renders a grid with one figure per card", () => {
 
 test("a cards block without a valid card renders nothing", () => {
   assert.equal(render("```cards\ntitle: No image\n```").includes("<figure"), false);
+});
+
+test("beforeAppendix renders once, above the first Development or Sources heading", () => {
+  const body = "## Resultado\n\nText.\n\n## Desenvolvimento\n\nMore.\n\n## Fontes e leituras\n\nEnd.";
+  const html = renderWithCta(body);
+
+  assert.equal(hasAppendix(body), true);
+  assert.equal(html.match(/>Visit</g)?.length, 1);
+  assert.ok(html.indexOf(">Visit<") > html.indexOf("Resultado"));
+  assert.ok(html.indexOf(">Visit<") < html.indexOf("Desenvolvimento"));
+});
+
+test("beforeAppendix is left out when the body has no closing section", () => {
+  const body = "## Result\n\nText.";
+
+  assert.equal(hasAppendix(body), false);
+  assert.equal(renderWithCta(body).includes(">Visit<"), false);
+  assert.equal(hasAppendix("## Sources and further reading\n\nText."), true);
 });

@@ -79,6 +79,18 @@ export function parseCardsBlock(raw: string): CardEntry[] {
   return cards;
 }
 
+const APPENDIX_HEADINGS = [
+  "development",
+  "desenvolvimento",
+  "sources and further reading",
+  "fontes e leituras",
+];
+
+/** True for the `##` headings that open the closing sections of a case (Development, Sources), in either language. */
+export function isAppendixHeading(text: string): boolean {
+  return APPENDIX_HEADINGS.includes(text.trim().toLowerCase());
+}
+
 /** True for `YYYY`, `YYYY-MM` and `YYYY-MM-DD`: the `###` headings of a Development entry. */
 export function isDateHeading(text: string): boolean {
   return /^\d{4}(-\d{2}(-\d{2})?)?$/.test(text.trim());

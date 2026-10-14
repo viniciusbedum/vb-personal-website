@@ -134,7 +134,7 @@ Display order on `/work` is pinned projects first (`pinnedAt`, newest pin first,
 | `year` | number, optional | `2025` | sorting only; missing sorts last |
 | `pinnedAt` | ISO date string, optional | `"2026-09-29"` | delete the key to unpin. Pinned projects come first on `/work` (with a pin icon on the card) and first inside the home list; the newest date is first; only the 5 newest pins count |
 | `category` | one of `PROJECT_CATEGORIES` | `"saas"` | delete the key |
-| `externalLink` | URL, optional | `"https://acme.com"` | delete the key: no "Visit project" button |
+| `externalLink` | URL, optional | `"https://acme.com"` | delete the key: no "Visit project" button. The button sits right above `## Development` or `## Sources and further reading` when the case has one of them, and at the end of the case otherwise |
 | `githubUrl` | URL, optional (off by default) | `"https://github.com/acme/checkout"` | delete the key: no "GitHub" row in the case header. Only when the person gives a repository link |
 | `linkUrl` | URL, optional (off by default) | `"https://acme.com/case"` | delete the key: no "Link" row in the case header. Only when the person asks for a link in the header besides the "Visit project" button |
 | `coverImage` | image path | `"/projects/checkout-redesign/cover.webp"` | required |
