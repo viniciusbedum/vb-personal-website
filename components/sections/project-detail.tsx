@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { ArrowLeft, ArrowUpRight } from "@phosphor-icons/react/ssr";
@@ -7,6 +6,7 @@ import type { Project } from "@/lib/content/types";
 import { buttonVariants } from "@/components/ui/button";
 import { ProjectBody, getBodyHeadings, hasAppendix } from "@/components/work/project-body";
 import { ProjectCard } from "@/components/work/project-card";
+import { ZoomableCard } from "@/components/work/zoomable-card";
 import { localeHref } from "@/i18n/navigation";
 
 export type ProjectDetailProps = {
@@ -16,11 +16,11 @@ export type ProjectDetailProps = {
   otherProjects: Project[];
 };
 
-const COVER_SIZES = "(min-width: 810px) 640px, calc(100vw - 32px)";
+const COVER_SIZES = "(min-width: 810px) 160px, 112px";
 
 /**
- * Project case-study page: single reading column (cover → title + date →
- * metadata → index → sectioned body → wrap-up). Own `<main>`, no `ListDetailLayout`.
+ * Project case-study page: single reading column (cover thumbnail beside
+ * title + date → metadata → index → sectioned body → wrap-up). Own `<main>`, no `ListDetailLayout`.
  * Server component.
  */
 export async function ProjectDetail({
@@ -71,49 +71,51 @@ export async function ProjectDetail({
         {t("back")}
       </Link>
 
-      <Image
-        src={project.coverImage}
-        alt=""
-        priority
-        width={1280}
-        height={853}
-        sizes={COVER_SIZES}
-        className="mt-6 aspect-[3/2] w-full rounded-xl object-cover"
-      />
+      {/* Cover as a thumbnail left of the title, the table below both. A click opens it large. */}
+      <div className="mt-6 grid grid-cols-[112px_1fr] items-center gap-x-4 tablet:grid-cols-[160px_1fr] tablet:gap-x-6">
+        <ZoomableCard
+          card={{ image: project.coverImage, alt: project.title }}
+          closeLabel={t("closeImage")}
+          sizes={COVER_SIZES}
+          priority
+        />
 
-      <h1 className="mt-8 text-[32px] leading-[1.15] text-foreground desktop:text-[40px]">
-        {project.title}
-      </h1>
+        <div>
+          <h1 className="text-[28px] leading-[1.15] text-foreground tablet:text-[32px] desktop:text-[36px]">
+            {project.title}
+          </h1>
 
-      {metaLine ? (
-        <p className="mt-3 font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
-          {metaLine}
-        </p>
-      ) : null}
+          {metaLine ? (
+            <p className="mt-3 font-mono text-[13px] leading-[1.3] tracking-[0.6px] uppercase text-muted-foreground">
+              {metaLine}
+            </p>
+          ) : null}
+        </div>
 
-      {rows.length > 0 ? (
-        <dl className="mt-6 grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-[15px] leading-[1.5]">
-          {rows.map((row) => (
-            <div key={row.label} className="contents">
-              <dt className="text-muted-foreground">{row.label}</dt>
-              <dd>
-                {row.isLink ? (
-                  <a
-                    href={row.value}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="break-all underline underline-offset-4 transition-colors hover:text-muted-foreground"
-                  >
-                    {urlLabel(row.value)}
-                  </a>
-                ) : (
-                  row.value
-                )}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      ) : null}
+        {rows.length > 0 ? (
+          <dl className="col-span-2 mt-6 grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-[15px] leading-[1.5]">
+            {rows.map((row) => (
+              <div key={row.label} className="contents">
+                <dt className="text-muted-foreground">{row.label}</dt>
+                <dd>
+                  {row.isLink ? (
+                    <a
+                      href={row.value}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="break-all underline underline-offset-4 transition-colors hover:text-muted-foreground"
+                    >
+                      {urlLabel(row.value)}
+                    </a>
+                  ) : (
+                    row.value
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        ) : null}
+      </div>
 
       {showToc ? (
         <nav

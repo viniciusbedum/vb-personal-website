@@ -9,7 +9,7 @@ const CARD_SIZES = "(min-width: 640px) 312px, calc(100vw - 32px)";
 const ZOOM_SIZES = "(min-width: 892px) 836px, calc(100vw - 56px)";
 
 /**
- * One card of a ```cards block. Hovering the image shows an expand icon, and
+ * One card of a ```cards block (also the case cover thumbnail). Hovering the image shows an expand icon, and
  * a click opens it large in a
  * native modal dialog over a darkened, blurred page; Esc, the close button
  * or a click outside closes it. The large image only loads once opened.
@@ -18,10 +18,16 @@ const ZOOM_SIZES = "(min-width: 892px) 836px, calc(100vw - 56px)";
 export function ZoomableCard({
   card,
   closeLabel,
+  sizes = CARD_SIZES,
+  priority,
   children,
 }: {
   card: CardEntry;
   closeLabel: string;
+  /** `sizes` of the small image; defaults to a card in the two-column grid. */
+  sizes?: string;
+  /** Load the small image first (the case cover, at the top of the page). */
+  priority?: boolean;
   /** The card text, already rendered (inline Markdown). */
   children?: ReactNode;
 }) {
@@ -45,7 +51,8 @@ export function ZoomableCard({
           alt={card.alt}
           width={1280}
           height={853}
-          sizes={CARD_SIZES}
+          sizes={sizes}
+          priority={priority}
           className="h-auto w-full rounded-xl"
         />
         <span
