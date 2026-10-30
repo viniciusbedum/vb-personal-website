@@ -12,7 +12,7 @@ Read first: `.claude/skills/site-onboarding/references/content-map.md`, section 
 ## What a project is made of
 
 - **Card** (Work page and home): cover image, period, category pill, title, short card text.
-- **Case page**: cover, title, "period · category", a table with client, role and result (plus optional GitHub and Link rows), an "On this page" index built from the `##` headings, the case body, a "Visit project" button (external link), and other projects at the bottom.
+- **Case page**: the cover as a small thumbnail left of the title (a click opens it large), title, "period · category", a table with client, role and result (plus optional GitHub and Link rows), an "On this page" index built from the `##` headings, the case body, a "Visit project" button (external link), and other projects at the bottom.
 - **Case body**: Summary (one to three sentences, an optional labeled list, then a divider), Context, What I did (lists, an optional real quote, images, each with an optional source note), Detail (optional), Result, and optionally Development (dated updates) and Sources (links).
 
 ## Rules
