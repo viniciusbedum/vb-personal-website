@@ -203,6 +203,19 @@ export function ProjectBody({
         );
       }
 
+      if (language === "divider") {
+        const label = text.trim();
+        return (
+          <div className="mt-16! border-t border-border pt-4">
+            {label ? (
+              <p className="font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
+                {label}
+              </p>
+            ) : null}
+          </div>
+        );
+      }
+
       if (language === "note") {
         const note = text.trim();
         if (!note) return null;
