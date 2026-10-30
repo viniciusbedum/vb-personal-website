@@ -12,8 +12,8 @@ Read first: `.claude/skills/site-onboarding/references/content-map.md`, section 
 ## What a project is made of
 
 - **Card** (Work page and home): cover image, period, category pill, title, short card text.
-- **Case page**: cover, title, "period · category", summary, a table with client, role and result (plus optional GitHub and Link rows), an "On this page" index built from the `##` headings, the case body, a "Visit project" button (external link), and other projects at the bottom.
-- **Case body**: Context, What I did (lists, an optional real quote, images, each with an optional source note), Detail (optional), Result, and optionally Development (dated updates) and Sources (links).
+- **Case page**: cover, title, "period · category", a table with client, role and result (plus optional GitHub and Link rows), an "On this page" index built from the `##` headings, the case body, a "Visit project" button (external link), and other projects at the bottom.
+- **Case body**: Summary (one to three sentences, an optional labeled list, then a divider), Context, What I did (lists, an optional real quote, images, each with an optional source note), Detail (optional), Result, and optionally Development (dated updates) and Sources (links).
 
 ## Rules
 
@@ -36,7 +36,7 @@ Read first: `.claude/skills/site-onboarding/references/content-map.md`, section 
    - Cover, cropped 3:2: `node .claude/skills/site-onboarding/scripts/prepare-image.mjs cover <input> public/projects/<slug>/cover.webp`
    - Case images: `... body <input> public/projects/<slug>/<n>.webp`, with no caption. Alt text describes the image. If they have a source link for an image, add a `note` block right after it.
    If the script fails, show its message (usually `npm install` is missing).
-6. **Write** the entry in the `PROJECTS` array (`lib/content/projects-data.ts`) and `content/projects/<slug>/en.md` and `pt.md` following the structure in content-map (`## Context`, `## What I did`, `### Detail`, `## Result` in English; `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado` in Portuguese; no H1, no frontmatter), then the optional `## Development` / `## Desenvolvimento` and `## Sources and further reading` / `## Fontes e leituras` sections only if they gave material.
+6. **Write** the entry in the `PROJECTS` array (`lib/content/projects-data.ts`) and `content/projects/<slug>/en.md` and `pt.md` following the structure in content-map (`## Summary`, then the `divider` block, `## Context`, `## What I did`, `### Detail`, `## Result` in English; `## Resumo`, `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado` in Portuguese; no H1, no frontmatter), then the optional `## Development` / `## Desenvolvimento` and `## Sources and further reading` / `## Fontes e leituras` sections only if they gave material.
 7. **Examples.** If the `projeto-exemplo-*` examples are still listed, this is the first real project: hide them, do not delete them. Remove their entries from `PROJECTS` and their slugs from `FEATURED_PROJECTS`, and keep their folders in `content/projects/` and `public/projects/` as hidden models (content-map, "Example projects"). To make a new project, duplicate a model folder and adapt it. Keep `public/placeholder-thumbnail.svg`.
 8. **Home.** Ask whether it should show on the home; if yes, add the slug to `FEATURED_PROJECTS` (it only picks; the home order is the same as `/work`). Ask whether to pin it (`pinnedAt` with today's date puts it first on `/work` and on the home; at most 5 pins count).
 9. **Check.** Run `npx tsc --noEmit` and `npm run build`; fix what they point at and run again until both pass. Then show a summary (card fields in both languages, the case headings, image count) and offer `npm run dev` to look at `http://localhost:3000/work/<slug>`.

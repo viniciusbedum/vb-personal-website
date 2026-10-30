@@ -106,6 +106,8 @@ Ask how many projects they want to add now (they can come back later). For each 
 - **Development** (optional): Were there dated updates worth recording (a release, a milestone, a change)? For each: the date and one short paragraph. Skip it if there are none.
 - **Sources** (optional): Are there links worth crediting (articles, docs, repos, press)? For each: kind, title, link, who and where, one line on why. Also ask if any paragraph or image needs a short source line. If they have no links, omit the `source` and `note` blocks entirely.
 
+Then write the **Summary** that opens the case from those answers, with no new claims: one to three sentences on what the project is, the labeled list (Problem, What I did, Result, Stack, Background) and the divider (format in content-map). Show it and adjust.
+
 Write both `en.md` and `pt.md` following the heading structure in content-map. Never add numbers they did not give.
 
 **When the first real project is saved:** hide the examples, do not delete them. Remove the `projeto-exemplo-1` and `projeto-exemplo-2` entries from `PROJECTS` and their slugs from `FEATURED_PROJECTS`; that is enough for them to disappear from the site (an unlisted project never becomes a page). Keep the folders `content/projects/projeto-exemplo-*/` and the covers in `public/projects/projeto-exemplo-*/`: they stay in the code as hidden models, and a new project is made by duplicating one. Keep `public/placeholder-thumbnail.svg` in place regardless (it is the fallback for empty images). The shipped `public/images/avatar.webp` is the template author's photo: step 1 replaces it with theirs.

@@ -126,7 +126,7 @@ Display order on `/work` is pinned projects first (`pinnedAt`, newest pin first,
 | `slug` | string, lowercase ASCII + hyphens, unique | `"checkout-redesign"` | required; URL `/work/<slug>` and the body folder name |
 | `title` | Localized | `{ pt: "Redesenho do checkout", en: "Checkout redesign" }` | required |
 | `cardText` | Localized, optional | short line on the card | delete the key |
-| `summary` | Localized | one paragraph, shown on the case page | required |
+| `summary` | Localized | one paragraph for the page description and the link preview (not shown on the case page: the case opens with its own Summary section) | required |
 | `client` | string, optional (not localized) | `"Acme"` | delete the key |
 | `role` | Localized, optional | `{ pt: "Designer líder", en: "Lead designer" }` | delete the key |
 | `outcome` | Localized, optional | `{ pt: "+18% em conversão", en: "+18% conversion" }` | delete the key. Only numbers the person gave |
@@ -167,6 +167,20 @@ Read by `readProjectBody` in `lib/content/projects.ts`: `<locale>.md`, falling b
 Structure, same as the examples:
 
 ```md
+## Summary
+
+One to three sentences on what the project is.
+
+- **Problem:** one sentence.
+- **What I did:** one or two sentences.
+- **Result:** one sentence, numbers only if given.
+- **Stack:** tools or technologies.
+- **Background:** where the project came from (own study, client work, a job).
+
+```divider
+In-depth study below
+```
+
 ## Context
 
 Paragraphs.
@@ -194,6 +208,7 @@ Paragraphs, numbers only if given.
 
 Optional sections, same file (all Markdown, no raw HTML):
 
+- **Divider**: a fenced block with the language `divider` draws a line, and its text is the small label on it (for example `In-depth study below` / `Estudo mais profundo abaixo`); an empty block draws only the line. Its usual place is right after the Summary, to mark where the full case starts.
 - **Development** (`## Development` / `## Desenvolvimento`): dated updates. Each entry is `### YYYY-MM-DD` (also `YYYY-MM` or `YYYY`) followed by one paragraph. The date heading renders as a small mono muted date; other `###` headings stay normal subheadings.
 - **Sources** (`## Sources and further reading` / `## Fontes e leituras`): one fenced block per source, with the fence language `source`. Keys, one per line: `kicker`, `title`, `url`, `meta`, `description`. `title` and `url` are required and `url` must start with `http://` or `https://`; an entry without them renders nothing.
 - **Source note**: a fenced block with the language `note`, placed right after the paragraph it credits. It renders as one small muted line and accepts inline Markdown (links, bold). An empty block renders nothing.
@@ -235,7 +250,7 @@ text: One line about the second card.
 ```
 ````
 
-`pt.md` uses `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado`. If the person skips Detail, omit that heading. Supported Markdown: paragraphs, `**bold**`, `*italic*`, links (external ones open in a new tab), `-` and `1.` lists, `>` quotes, images (there is no caption: a `note` block right after the image credits its source, and it is omitted when there is none).
+The Summary is required and always first: it is the opening of the case page, under the title and the metadata table. Its opening sentences are required; the labeled list is optional, and its labels can change to fit the project (for example **Tools** instead of **Stack**). Its lines come from the same material as the case, never new claims. `pt.md` uses `## Resumo` (labels **Problema**, **O que eu fiz**, **Resultado**, **Stack**, **Origem**; divider `Estudo mais profundo abaixo`), `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado`. If the person skips Detail, omit that heading. Supported Markdown: paragraphs, `**bold**`, `*italic*`, links (external ones open in a new tab), `-` and `1.` lists, `>` quotes, images (there is no caption: a `note` block right after the image credits its source, and it is omitted when there is none).
 
 ### Example projects
 

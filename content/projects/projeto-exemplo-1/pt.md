@@ -1,3 +1,17 @@
+## Resumo
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+
+- **Problema:** Ut enim ad minim veniam, quis nostrud exercitation ullamco.
+- **O que eu fiz:** Duis aute irure dolor in reprehenderit in voluptate velit esse.
+- **Resultado:** Excepteur sint occaecat cupidatat non proident.
+- **Stack:** Lorem, Ipsum e Dolor.
+- **Origem:** Sunt in culpa qui officia deserunt mollit anim.
+
+```divider
+Estudo mais profundo abaixo
+```
+
 ## Contexto
 
 Lorem ipsum dolor sit amet, **consectetur adipiscing elit**, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.

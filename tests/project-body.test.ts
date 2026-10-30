@@ -82,3 +82,9 @@ test("the text of a card accepts inline Markdown links", () => {
 
   assert.match(html, /2023 · <a href="https:\/\/example\.com\/a\?b=1" target="_blank"/);
 });
+
+test("a divider block renders a rule with its label, and no label when empty", () => {
+  const html = render("Text.\n\n```divider\nIn-depth study below\n```\n\n## Context");
+  assert.match(html, /border-t[^>]*><p[^>]*>In-depth study below<\/p><\/div>/);
+  assert.doesNotMatch(render("```divider\n```"), /<p/);
+});

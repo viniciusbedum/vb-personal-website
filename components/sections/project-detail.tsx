@@ -20,7 +20,7 @@ const COVER_SIZES = "(min-width: 810px) 640px, calc(100vw - 32px)";
 
 /**
  * Project case-study page: single reading column (cover → title + date →
- * metadata → opening → index → sectioned body → wrap-up). Own `<main>`, no `ListDetailLayout`.
+ * metadata → index → sectioned body → wrap-up). Own `<main>`, no `ListDetailLayout`.
  * Server component.
  */
 export async function ProjectDetail({
@@ -90,10 +90,6 @@ export async function ProjectDetail({
           {metaLine}
         </p>
       ) : null}
-
-      <p className="mt-5 text-[17px] leading-[1.55] text-foreground">
-        {project.summary}
-      </p>
 
       {rows.length > 0 ? (
         <dl className="mt-6 grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-[15px] leading-[1.5]">
