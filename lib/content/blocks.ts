@@ -96,3 +96,23 @@ export function isAppendixHeading(text: string): boolean {
 export function isDateHeading(text: string): boolean {
   return /^\d{4}(-\d{2}(-\d{2})?)?$/.test(text.trim());
 }
+
+const WORDS_PER_MINUTE = 200;
+const SECONDS_PER_IMAGE = 10;
+
+/**
+ * Minutes to read a case body, counting only what comes after its `divider` block (the whole body when there is none):
+ * words at 200 per minute, without `source`/`cards` blocks, image paths or link targets, plus 10 seconds per image.
+ * Rounded up, at least 1.
+ */
+export function readingMinutes(body: string): number {
+  const divider = /^```divider[^\n]*\n[\s\S]*?^```[^\n]*$/m.exec(body);
+  let text = divider ? body.slice(divider.index + divider[0].length) : body;
+  const images = (text.match(/!\[/g) ?? []).length;
+  text = text
+    .replace(/^```(?:source|cards)[^\n]*\n[\s\S]*?^```[^\n]*$/gm, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1");
+  const words = (text.match(/[\p{L}\p{N}]+/gu) ?? []).length;
+  return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE + (images * SECONDS_PER_IMAGE) / 60));
+}

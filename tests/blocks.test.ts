@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { isDateHeading, parseCardsBlock, parseSourceBlock } from "../lib/content/blocks";
+import { isDateHeading, parseCardsBlock, parseSourceBlock, readingMinutes } from "../lib/content/blocks";
 
 test("parseSourceBlock reads all five fields", () => {
   assert.deepEqual(
@@ -65,4 +65,18 @@ test("parseCardsBlock skips cards without a site image path and defaults alt to 
     [{ image: "/ok.webp", alt: "" }],
   );
   assert.deepEqual(parseCardsBlock(""), []);
+});
+
+test("readingMinutes counts only the text after the divider, at 200 words per minute", () => {
+  const words = (n: number) => Array.from({ length: n }, () => "word").join(" ");
+  const body = `## Summary\n\n${words(500)}\n\n\`\`\`divider\nFull case\n{min} min read\n\`\`\`\n\n${words(401)}`;
+  assert.equal(readingMinutes(body), 3);
+  assert.equal(readingMinutes(words(10)), 1);
+});
+
+test("readingMinutes adds 10 seconds per image and skips source and cards blocks", () => {
+  const words = (n: number) => Array.from({ length: n }, () => "word").join(" ");
+  const sources = "```source\ntitle: T\nurl: https://example.com\n```";
+  const body = `${words(390)}\n\n${sources}\n\n${"![alt](/a.webp)\n\n".repeat(6)}`;
+  assert.equal(readingMinutes(body), 3);
 });

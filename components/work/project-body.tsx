@@ -1,11 +1,13 @@
 import Image from "next/image";
 import { isValidElement, type ReactNode } from "react";
 import Markdown, { type Components, type ExtraProps } from "react-markdown";
+import { Clock } from "@phosphor-icons/react/ssr";
 import {
   isAppendixHeading,
   isDateHeading,
   parseCardsBlock,
   parseSourceBlock,
+  readingMinutes,
 } from "@/lib/content/blocks";
 import { ZoomableCard } from "@/components/work/zoomable-card";
 import { cn } from "@/lib/utils";
@@ -204,12 +206,15 @@ export function ProjectBody({
       }
 
       if (language === "divider") {
-        const label = text.trim();
+        // First line: the label. Optional second line: the reading time, with `{min}` replaced by the minutes.
+        const [label = "", time] = text.trim().split("\n").map((line) => line.trim());
         return (
-          <div className="mt-16! border-t border-border pt-4">
-            {label ? (
-              <p className="font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
-                {label}
+          <div className="mt-16! flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-border py-4 font-mono text-[13px] leading-none tracking-[0.6px] uppercase">
+            {label ? <p className="text-foreground">{label}</p> : null}
+            {time ? (
+              <p className="flex items-center gap-1.5 text-foreground">
+                <Clock className="size-4 text-brand" aria-hidden />
+                {time.replace("{min}", String(readingMinutes(body)))}
               </p>
             ) : null}
           </div>
@@ -260,7 +265,7 @@ export function ProjectBody({
   return (
     <div
       className={cn(
-        "mt-10 text-[15px] leading-[1.5]",
+        "mt-6 text-[15px] leading-[1.5] [&>h2:first-child]:mt-0",
         "[&>p]:mt-[22.5px] [&>ul]:mt-[22.5px] [&>ol]:mt-[22.5px]",
       )}
     >

@@ -37,6 +37,8 @@ export function ZoomableCard({
   function show() {
     setOpen(true);
     dialogRef.current?.showModal();
+    // Focus the dialog itself, not the close button: a click should not light up the button's focus ring. Tab reaches it.
+    dialogRef.current?.focus();
   }
 
   return (
@@ -75,6 +77,7 @@ export function ZoomableCard({
 
       <dialog
         ref={dialogRef}
+        tabIndex={-1}
         onClose={() => setOpen(false)}
         onClick={(event) => {
           if (event.target === dialogRef.current) dialogRef.current?.close();
@@ -85,10 +88,9 @@ export function ZoomableCard({
           <>
             <button
               type="button"
-              autoFocus
               onClick={() => dialogRef.current?.close()}
               aria-label={closeLabel}
-              className="absolute right-5 top-5 z-10 flex size-8 cursor-pointer items-center justify-center rounded-lg border border-white/20 bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75"
+              className="absolute right-5 top-5 z-10 flex size-8 cursor-pointer items-center justify-center rounded-lg border border-white/20 bg-black/55 text-white backdrop-blur-sm transition-colors hover:bg-black/75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               <X className="size-4" aria-hidden />
             </button>

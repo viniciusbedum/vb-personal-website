@@ -9,7 +9,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 - **Background:** Sunt in culpa qui officia deserunt mollit anim.
 
 ```divider
-In-depth study below
+Full case
+{min} min read
 ```
 
 ## Context

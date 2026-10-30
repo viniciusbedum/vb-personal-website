@@ -93,7 +93,7 @@ export async function ProjectDetail({
         </div>
 
         {rows.length > 0 ? (
-          <dl className="col-span-2 mt-6 grid grid-cols-[max-content_1fr] gap-x-6 gap-y-2 text-[15px] leading-[1.5]">
+          <dl className="col-span-2 mt-6 grid grid-cols-[max-content_1fr] gap-x-4 gap-y-1.5 text-[13px] leading-[1.45] tablet:gap-x-6 tablet:text-[14px]">
             {rows.map((row) => (
               <div key={row.label} className="contents">
                 <dt className="text-muted-foreground">{row.label}</dt>
