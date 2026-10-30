@@ -17,11 +17,11 @@ type ProjectCardProps = {
 };
 
 /**
- * Work card: 3:2 cover on top, then a meta row with the date (free
- * `period` like "2022-2023", falling back to `year`) in mono
- * (same style as the home clock/location) on the left and the single
- * category as a small bordered pill on the right, then title and the
- * owner's free `cardText` in muted grey. Date, pill and text are optional.
+ * Work card: 3:2 cover on top with the single category as a small pill in
+ * its top-left corner (the pin, when shown, takes the top-right), then the
+ * date (free `period` like "2022-2023", falling back to `year`) in mono
+ * (same style as the home clock/location), the title on one line (cut with
+ * an ellipsis) and the owner's free `cardText` in muted grey. Date, pill and text are optional.
  * Built for the home Work grid (2 cols) and the Work hub.
  * Server component.
  */
@@ -51,6 +51,11 @@ export async function ProjectCard({
           sizes={sizes}
           className="aspect-[3/2] w-full rounded-lg object-cover"
         />
+        {project.category ? (
+          <span className="absolute left-1.5 top-1.5 rounded-[4px] border border-white/20 bg-black/55 px-[5px] py-[3px] text-[10px] leading-none tracking-[0.4px] text-white uppercase backdrop-blur-sm tablet:left-2 tablet:top-2">
+            {t(project.category)}
+          </span>
+        ) : null}
         {showPin && project.pinned ? (
           <span
             role="img"
@@ -62,25 +67,16 @@ export async function ProjectCard({
         ) : null}
       </div>
       <span className="flex flex-1 flex-col px-1">
-        {date || project.category ? (
-          <span className="mb-2 flex flex-wrap items-center justify-between gap-2">
-            {date ? (
-              <span className="font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
-                {date}
-              </span>
-            ) : null}
-            {project.category ? (
-              <span className="ml-auto rounded-[4px] border border-border px-[5px] py-[3px] text-[10px] leading-none tracking-[0.4px] text-subtle uppercase">
-                {t(project.category)}
-              </span>
-            ) : null}
+        {date ? (
+          <span className="mb-2 font-mono text-[13px] leading-[0.8] tracking-[0.6px] uppercase text-muted-foreground">
+            {date}
           </span>
         ) : null}
-        <span className="line-clamp-2 text-[15px] leading-[1.5] text-foreground">
+        <span className="truncate text-[15px] leading-[1.5] text-foreground">
           {project.title}
         </span>
         {project.cardText ? (
-          <span className="mt-0.5 line-clamp-2 text-[13px] leading-[1.5] text-muted-foreground [hyphens:auto] [overflow-wrap:anywhere]">
+          <span className="mt-0.5 line-clamp-3 text-[13px] leading-[1.5] text-muted-foreground [hyphens:auto] [overflow-wrap:break-word] tablet:line-clamp-2">
             {project.cardText}
           </span>
         ) : null}

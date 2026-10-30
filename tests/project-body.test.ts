@@ -85,6 +85,13 @@ test("the text of a card accepts inline Markdown links", () => {
 
 test("a divider block renders a rule with its label, and no label when empty", () => {
   const html = render("Text.\n\n```divider\nIn-depth study below\n```\n\n## Context");
-  assert.match(html, /border-t[^>]*><p[^>]*>In-depth study below<\/p><\/div>/);
+  assert.match(html, /border-y[^>]*><p[^>]*>In-depth study below<\/p><\/div>/);
   assert.doesNotMatch(render("```divider\n```"), /<p/);
+});
+
+test("a divider block shows the reading time of the rest of the case on its second line", () => {
+  const rest = Array.from({ length: 450 }, () => "word").join(" ");
+  const html = render(`\`\`\`divider\nFull case\n{min} min read\n\`\`\`\n\n${rest}`);
+  assert.match(html, /<p class="text-foreground">Full case<\/p>/);
+  assert.match(html, /<svg[^>]*>[\s\S]*?<\/svg>3 min read<\/p>/);
 });

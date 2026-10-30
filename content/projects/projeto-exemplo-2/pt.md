@@ -9,7 +9,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 - **Origem:** Sunt in culpa qui officia deserunt mollit anim.
 
 ```divider
-Estudo mais profundo abaixo
+Case completo
+{min} min de leitura
 ```
 
 ## Contexto

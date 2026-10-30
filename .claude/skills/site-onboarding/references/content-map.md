@@ -125,7 +125,7 @@ Display order on `/work` is pinned projects first (`pinnedAt`, newest pin first,
 |---|---|---|---|
 | `slug` | string, lowercase ASCII + hyphens, unique | `"checkout-redesign"` | required; URL `/work/<slug>` and the body folder name |
 | `title` | Localized | `{ pt: "Redesenho do checkout", en: "Checkout redesign" }` | required |
-| `cardText` | Localized, optional | short line on the card | delete the key |
+| `cardText` | Localized, optional | short line on the card, about 45 characters (on a phone it shows up to three lines, two from tablet up, then an ellipsis); lead with a result when the case has a number | delete the key |
 | `summary` | Localized | one paragraph for the page description and the link preview (not shown on the case page: the case opens with its own Summary section) | required |
 | `client` | string, optional (not localized) | `"Acme"` | delete the key |
 | `role` | Localized, optional | `{ pt: "Designer líder", en: "Lead designer" }` | delete the key |
@@ -178,7 +178,8 @@ One to three sentences on what the project is.
 - **Background:** where the project came from (own study, client work, a job).
 
 ```divider
-In-depth study below
+Full case
+{min} min read
 ```
 
 ## Context
@@ -208,7 +209,7 @@ Paragraphs, numbers only if given.
 
 Optional sections, same file (all Markdown, no raw HTML):
 
-- **Divider**: a fenced block with the language `divider` draws a line, and its text is the small label on it (for example `In-depth study below` / `Estudo mais profundo abaixo`); an empty block draws only the line. Its usual place is right after the Summary, to mark where the full case starts.
+- **Divider**: a fenced block with the language `divider` draws a band between two lines. Its first line is the label (for example `Full case` / `Case completo`); an optional second line is the reading time, shown with a clock icon, where `{min}` becomes the minutes to read the rest of the case (`{min} min read` / `{min} min de leitura`). The minutes are computed at build time from the words after the divider (200 per minute, without `source`/`cards` blocks, image paths or link targets) plus 10 seconds per image, rounded up. An empty block draws only the band. Its usual place is right after the Summary, to mark where the full case starts.
 - **Development** (`## Development` / `## Desenvolvimento`): dated updates. Each entry is `### YYYY-MM-DD` (also `YYYY-MM` or `YYYY`) followed by one paragraph. The date heading renders as a small mono muted date; other `###` headings stay normal subheadings.
 - **Sources** (`## Sources and further reading` / `## Fontes e leituras`): one fenced block per source, with the fence language `source`. Keys, one per line: `kicker`, `title`, `url`, `meta`, `description`. `title` and `url` are required and `url` must start with `http://` or `https://`; an entry without them renders nothing.
 - **Source note**: a fenced block with the language `note`, placed right after the paragraph it credits. It renders as one small muted line and accepts inline Markdown (links, bold). An empty block renders nothing.
@@ -250,7 +251,7 @@ text: One line about the second card.
 ```
 ````
 
-The Summary is required and always first: it is the opening of the case page, under the title and the metadata table. Its opening sentences are required; the labeled list is optional, and its labels can change to fit the project (for example **Tools** instead of **Stack**). Its lines come from the same material as the case, never new claims. `pt.md` uses `## Resumo` (labels **Problema**, **O que eu fiz**, **Resultado**, **Stack**, **Origem**; divider `Estudo mais profundo abaixo`), `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado`. If the person skips Detail, omit that heading. Supported Markdown: paragraphs, `**bold**`, `*italic*`, links (external ones open in a new tab), `-` and `1.` lists, `>` quotes, images (there is no caption: a `note` block right after the image credits its source, and it is omitted when there is none).
+The Summary is required and always first: it is the opening of the case page, under the title and the metadata table. Its opening sentences are required; the labeled list is optional, and its labels can change to fit the project (for example **Tools** instead of **Stack**). Its lines come from the same material as the case, never new claims. When an item has two long sentences, end the first with a backslash (`\`) to put the second on its own line inside the same item. `pt.md` uses `## Resumo` (labels **Problema**, **O que eu fiz**, **Resultado**, **Stack**, **Origem**; divider `Case completo` / `{min} min de leitura`), `## Contexto`, `## O que eu fiz`, `### Detalhe`, `## Resultado`. If the person skips Detail, omit that heading. Supported Markdown: paragraphs, `**bold**`, `*italic*`, links (external ones open in a new tab), `-` and `1.` lists, `>` quotes, images (there is no caption: a `note` block right after the image credits its source, and it is omitted when there is none).
 
 ### Example projects
 
